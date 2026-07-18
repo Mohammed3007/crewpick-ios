@@ -42,7 +42,7 @@ swift test
 
 The tests cover ranking, combined filtering, unvoted behavior, reaction replacement/toggle, finalist selection, URL normalization, duplicate detection, invite/deep-link routing, shared import persistence, and link-preview fallback rules.
 
-The CrewPick Xcode scheme also includes two simulator UI tests covering group → idea → comment and group → add idea → board. Run them with an available simulator selected in Xcode, or from the command line:
+The CrewPick Xcode scheme also includes three simulator UI tests covering group → idea → comment, group → add idea → board, and the board in dark mode at an accessibility text size. Run them with an available simulator selected in Xcode, or from the command line:
 
 ```sh
 xcodebuild -project CrewPick.xcodeproj -scheme CrewPick \
@@ -63,7 +63,7 @@ The baseline was verified with Xcode 26.6, XcodeGen 2.46.0, and the iOS 26.5 Sim
 
 - Generic iOS Simulator build succeeded.
 - All 29 Swift Testing tests passed.
-- Both critical-path XCUITests passed on iPhone 17 Pro.
+- All three XCUITests passed on iPhone 17 Pro.
 - The app installed and launched on an iPhone 17 Pro simulator.
 - The embedded share-extension target compiled and passed Xcode’s embedded-binary validation.
 
@@ -72,3 +72,5 @@ The baseline was verified with Xcode 26.6, XcodeGen 2.46.0, and the iOS 26.5 Sim
 Views depend on `AppModel`; `AppModel` depends on repository protocols; `LocalStore` supplies the current data implementation. Supabase repositories can be added behind the same protocols. Domain types do not import SwiftUI or Supabase.
 
 See `docs/AUDIT_AND_IMPLEMENTATION_PLAN.md` for attachment findings, assumptions, milestones, and integration blockers.
+
+See `docs/RELEASE_READINESS.md` for the verified beta boundary and the Apple/Supabase steps that require real account configuration.

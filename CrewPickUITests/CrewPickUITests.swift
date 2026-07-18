@@ -7,11 +7,16 @@ final class CrewPickUITests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
         app = XCUIApplication()
+    }
+
+    private func launch(extraArguments: [String] = []) {
         app.launchArguments += ["-hasCompletedOnboarding", "YES"]
+        app.launchArguments += extraArguments
         app.launch()
     }
 
     func testBrowseReactAndComment() throws {
+        launch()
         let group = app.descendants(matching: .any)["group-card-10000000-0000-0000-0000-000000000001"]
         XCTAssertTrue(group.waitForExistence(timeout: 5))
         group.tap()
@@ -33,6 +38,7 @@ final class CrewPickUITests: XCTestCase {
     }
 
     func testAddIdeaToBoard() throws {
+        launch()
         let group = app.descendants(matching: .any)["group-card-10000000-0000-0000-0000-000000000001"]
         XCTAssertTrue(group.waitForExistence(timeout: 5))
         group.tap()
@@ -50,5 +56,18 @@ final class CrewPickUITests: XCTestCase {
 
         let savedIdea = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Sunset picnic")).firstMatch
         XCTAssertTrue(savedIdea.waitForExistence(timeout: 3))
+    }
+
+    func testBoardAtAccessibilityTextSizeInDarkMode() throws {
+        launch(extraArguments: [
+            "-AppleInterfaceStyle", "Dark",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge"
+        ])
+
+        let group = app.descendants(matching: .any)["group-card-10000000-0000-0000-0000-000000000001"]
+        XCTAssertTrue(group.waitForExistence(timeout: 5))
+        group.tap()
+        XCTAssertTrue(app.buttons["Add idea"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Decide for us"].exists)
     }
 }
