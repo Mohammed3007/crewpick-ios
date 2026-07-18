@@ -20,6 +20,8 @@ public protocol GroupRepository: Sendable {
 public protocol IdeaRepository: Sendable {
     func ideas(in groupID: UUID) async throws -> [Idea]
     func add(_ draft: IdeaDraft, to groupID: UUID, creator: User) async throws -> Idea
+    func update(_ draft: IdeaDraft, ideaID: UUID, requestedBy userID: UUID) async throws -> Idea
+    func delete(ideaID: UUID, requestedBy userID: UUID) async throws
     func setReaction(_ reaction: ReactionKind, ideaID: UUID, userID: UUID) async throws -> Idea
     func addComment(_ body: String, ideaID: UUID, author: User) async throws -> Idea
     func setStatus(_ status: IdeaStatus, ideaID: UUID) async throws -> Idea

@@ -63,5 +63,29 @@ struct LocalStoreFlowTests {
             try await store.setPreference(.off, groupID: UUID())
         }
     }
+
+    @Test("Creators and admins can edit ideas, other members cannot")
+    func ideaEditPermissions() async throws {
+        let store = SampleData.store()
+        var draft = IdeaDraft(title: "Updated Bar Raval", category: .food, location: "Little Italy", priceLevel: 3)
+        let updated = try await store.update(draft, ideaID: SampleData.barRavalID, requestedBy: SampleData.alex.id)
+        #expect(updated.title == "Updated Bar Raval")
+
+        draft.title = "Not allowed"
+        await #expect(throws: RepositoryError.permissionDenied) {
+            try await store.update(draft, ideaID: SampleData.barRavalID, requestedBy: SampleData.sam.id)
+        }
+    }
+
+    @Test("Idea deletion enforces creator or admin ownership")
+    func ideaDeletePermissions() async throws {
+        let store = SampleData.store()
+        await #expect(throws: RepositoryError.permissionDenied) {
+            try await store.delete(ideaID: SampleData.barRavalID, requestedBy: SampleData.sam.id)
+        }
+        try await store.delete(ideaID: SampleData.barRavalID, requestedBy: SampleData.maya.id)
+        let remaining = try await store.ideas(in: SampleData.weekendCrewID)
+        #expect(!remaining.contains(where: { $0.id == SampleData.barRavalID }))
+    }
 }
 #endif

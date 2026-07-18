@@ -72,6 +72,32 @@ public actor LocalStore: GroupRepository, IdeaRepository, NotificationRegisterin
         return idea
     }
 
+    public func update(_ draft: IdeaDraft, ideaID: UUID, requestedBy userID: UUID) async throws -> Idea {
+        guard let index = storedIdeas.firstIndex(where: { $0.id == ideaID }) else { throw RepositoryError.ideaNotFound }
+        let groupID = storedIdeas[index].groupID
+        guard canManage(storedIdeas[index], requestedBy: userID, in: groupID) else { throw RepositoryError.permissionDenied }
+        let title = draft.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !title.isEmpty else { throw RepositoryError.invalidTitle }
+        if let sourceURL = draft.sourceURL,
+           let normalized = URLNormalizer.normalize(sourceURL),
+           let duplicate = storedIdeas.first(where: { $0.id != ideaID && $0.groupID == groupID && $0.sourceURL.flatMap(URLNormalizer.normalize) == normalized }) {
+            throw RepositoryError.duplicateIdea(existingIdeaID: duplicate.id)
+        }
+        storedIdeas[index].title = title
+        storedIdeas[index].category = draft.category
+        storedIdeas[index].location = draft.location.nilIfBlank
+        storedIdeas[index].priceLevel = draft.priceLevel
+        storedIdeas[index].note = draft.note.nilIfBlank
+        storedIdeas[index].sourceURL = draft.sourceURL
+        return storedIdeas[index]
+    }
+
+    public func delete(ideaID: UUID, requestedBy userID: UUID) async throws {
+        guard let idea = storedIdeas.first(where: { $0.id == ideaID }) else { throw RepositoryError.ideaNotFound }
+        guard canManage(idea, requestedBy: userID, in: idea.groupID) else { throw RepositoryError.permissionDenied }
+        storedIdeas.removeAll { $0.id == ideaID }
+    }
+
     public func setReaction(_ reaction: ReactionKind, ideaID: UUID, userID: UUID) async throws -> Idea {
         guard let index = storedIdeas.firstIndex(where: { $0.id == ideaID }) else { throw RepositoryError.ideaNotFound }
         storedIdeas[index] = ReactionRules.applying(reaction, by: userID, to: storedIdeas[index])
@@ -105,6 +131,12 @@ public actor LocalStore: GroupRepository, IdeaRepository, NotificationRegisterin
     public func setPreference(_ frequency: NotificationFrequency, groupID: UUID) async throws {
         guard storedGroups.contains(where: { $0.id == groupID }) else { throw RepositoryError.groupNotFound }
         notificationPreferences[groupID] = frequency
+    }
+
+    private func canManage(_ idea: Idea, requestedBy userID: UUID, in groupID: UUID) -> Bool {
+        idea.creator.id == userID || storedGroups.first(where: { $0.id == groupID })?.members.contains(where: {
+            $0.user.id == userID && $0.role == .admin
+        }) == true
     }
 }
 

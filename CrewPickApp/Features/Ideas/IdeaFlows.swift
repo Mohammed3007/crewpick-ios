@@ -6,6 +6,9 @@ struct IdeaDetailView: View {
     let group: FriendGroup
     @State private var commentText = ""
     @FocusState private var commentFocused: Bool
+    @State private var showingEdit = false
+    @State private var confirmingDelete = false
+    @Environment(\.dismiss) private var dismiss
 
     private var idea: Idea? { model.ideasByGroup[group.id]?.first(where: { $0.id == ideaID }) }
 
@@ -29,6 +32,13 @@ struct IdeaDetailView: View {
                             if let sourceURL = idea.sourceURL { Link("Open original link", destination: sourceURL).buttonStyle(.bordered) }
                             ReactionControl(idea: idea, userID: model.currentUser.id) { kind in
                                 Task { await model.react(kind, to: idea.id, in: group.id) }
+                            }
+                            reactionBreakdown(idea)
+                            if idea.status == .planned {
+                                Button("Return to board", systemImage: "arrow.uturn.backward") {
+                                    Task { await model.returnToBoard(idea, in: group.id) }
+                                }
+                                .buttonStyle(.bordered)
                             }
                             Divider()
                             Text("Comments").font(.headline)
@@ -72,6 +82,45 @@ struct IdeaDetailView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if let idea, canManage(idea) {
+                Menu("Idea actions", systemImage: "ellipsis.circle") {
+                    Button("Edit idea", systemImage: "pencil") { showingEdit = true }
+                    Button("Delete idea", systemImage: "trash", role: .destructive) { confirmingDelete = true }
+                }
+            }
+        }
+        .sheet(isPresented: $showingEdit) {
+            if let idea { AddIdeaView(group: group, idea: idea) }
+        }
+        .confirmationDialog("Delete this idea?", isPresented: $confirmingDelete, titleVisibility: .visible) {
+            Button("Delete idea", role: .destructive) {
+                guard let idea else { return }
+                Task { if await model.delete(idea, in: group.id) { dismiss() } }
+            }
+        } message: {
+            Text("This removes the idea, its reactions, and comments for everyone in the group.")
+        }
+    }
+
+    private func canManage(_ idea: Idea) -> Bool {
+        idea.creator.id == model.currentUser.id || group.members.contains { $0.user.id == model.currentUser.id && $0.role == .admin }
+    }
+
+    @ViewBuilder private func reactionBreakdown(_ idea: Idea) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            ForEach(ReactionKind.allCases) { kind in
+                let names = idea.reactions.filter { $0.kind == kind }.compactMap { reaction in
+                    group.members.first(where: { $0.user.id == reaction.userID })?.user.displayName
+                }
+                if !names.isEmpty {
+                    Text("\(kind.rawValue): \(names.joined(separator: ", "))")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+            }
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Reaction breakdown")
     }
 }
 
@@ -87,12 +136,15 @@ struct AddIdeaView: View {
     @State private var duplicateIdeaID: UUID?
     private let onSaved: () -> Void
     private let onOpenDuplicate: (UUID) -> Void
+    private let existingIdeaID: UUID?
 
-    init(group: FriendGroup, initialURL: URL? = nil, onSaved: @escaping () -> Void = {}, onOpenDuplicate: @escaping (UUID) -> Void = { _ in }) {
+    init(group: FriendGroup, idea: Idea? = nil, initialURL: URL? = nil, onSaved: @escaping () -> Void = {}, onOpenDuplicate: @escaping (UUID) -> Void = { _ in }) {
         self.group = group
         self.onSaved = onSaved
         self.onOpenDuplicate = onOpenDuplicate
-        _urlText = State(initialValue: initialURL?.absoluteString ?? "")
+        self.existingIdeaID = idea?.id
+        _draft = State(initialValue: idea.map(IdeaDraft.init) ?? IdeaDraft())
+        _urlText = State(initialValue: initialURL?.absoluteString ?? idea?.sourceURL?.absoluteString ?? "")
     }
 
     var body: some View {
@@ -126,11 +178,11 @@ struct AddIdeaView: View {
                     }
                 }
             }
-            .navigationTitle("New idea")
+            .navigationTitle(existingIdeaID == nil ? "New idea" : "Edit idea")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Post") { Task { await save() } }.disabled(draft.title.trimmingCharacters(in: .whitespaces).isEmpty || isSaving)
+                    Button(existingIdeaID == nil ? "Post" : "Save") { Task { await save() } }.disabled(draft.title.trimmingCharacters(in: .whitespaces).isEmpty || isSaving)
                 }
             }
         }
@@ -141,7 +193,8 @@ struct AddIdeaView: View {
         defer { isSaving = false }
         draft.sourceURL = urlText.isEmpty ? nil : URL(string: urlText)
         do {
-            try await model.add(draft, to: group.id)
+            if let existingIdeaID { try await model.update(draft, ideaID: existingIdeaID, in: group.id) }
+            else { try await model.add(draft, to: group.id) }
             onSaved()
             dismiss()
         } catch RepositoryError.duplicateIdea(let existingID) {
@@ -162,5 +215,18 @@ struct AddIdeaView: View {
             draft.sourceURL = url
             errorMessage = "We couldn't read that site's preview. Add a title and the link can still be saved."
         }
+    }
+}
+
+private extension IdeaDraft {
+    init(idea: Idea) {
+        self.init(
+            title: idea.title,
+            category: idea.category,
+            location: idea.location ?? "",
+            priceLevel: idea.priceLevel,
+            note: idea.note ?? "",
+            sourceURL: idea.sourceURL
+        )
     }
 }

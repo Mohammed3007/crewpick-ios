@@ -70,6 +70,22 @@ final class AppModel: ObservableObject {
         activity.insert(.init(groupID: groupID, actor: currentUser, kind: .ideaAdded, message: "You added \(idea.title)", ideaID: idea.id), at: 0)
     }
 
+    func update(_ draft: IdeaDraft, ideaID: UUID, in groupID: UUID) async throws {
+        let idea = try await ideaRepository.update(draft, ideaID: ideaID, requestedBy: currentUser.id)
+        replace(idea, in: groupID)
+    }
+
+    func delete(_ idea: Idea, in groupID: UUID) async -> Bool {
+        do {
+            try await ideaRepository.delete(ideaID: idea.id, requestedBy: currentUser.id)
+            ideasByGroup[groupID]?.removeAll { $0.id == idea.id }
+            return true
+        } catch {
+            alertMessage = "You don't have permission to delete this idea."
+            return false
+        }
+    }
+
     func importPreview(for url: URL) async throws -> IdeaDraft {
         try await metadataProvider.metadata(for: url)
     }
@@ -127,6 +143,13 @@ final class AppModel: ObservableObject {
             replace(updated, in: groupID)
             activity.insert(.init(groupID: groupID, actor: currentUser, kind: .planCompleted, message: "You completed \(updated.title)", ideaID: updated.id), at: 0)
         } catch { alertMessage = "The plan couldn't be completed." }
+    }
+
+    func returnToBoard(_ idea: Idea, in groupID: UUID) async {
+        do {
+            let updated = try await ideaRepository.setStatus(.board, ideaID: idea.id)
+            replace(updated, in: groupID)
+        } catch { alertMessage = "The idea couldn't be returned to the board." }
     }
 
     func group(id: UUID) -> FriendGroup? { groups.first { $0.id == id } }
