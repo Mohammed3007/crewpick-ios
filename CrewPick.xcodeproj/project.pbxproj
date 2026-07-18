@@ -21,6 +21,7 @@
 		CB1B7D7BE756AF081A111DFF /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B5FE5DFE60DAF8C9BC0C4 /* SampleData.swift */; };
 		DEB33BA10F03F7B002F0104E /* URLNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BF2D716962B7B88A07FA99 /* URLNormalizer.swift */; };
 		F98F2F6CBD313C60B375EAE3 /* LocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3605F8E9DCD552476D7B3 /* LocalStore.swift */; };
+		FC0DE19271C00614039E100B /* DeepLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD33D17AF33E2B1401B6E32 /* DeepLinks.swift */; };
 		FC29E8CF29DF8494FCDA9E70 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709E6C1FA0C36341284E6227 /* RootView.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		83C338B9B9E6E58F66C0D2D1 /* IdeaFlows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaFlows.swift; sourceTree = "<group>"; };
 		9D4B99122C847A72873C6FF1 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		A8A16100F22A920E01B29BD1 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		ABD33D17AF33E2B1401B6E32 /* DeepLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinks.swift; sourceTree = "<group>"; };
 		D2A3605F8E9DCD552476D7B3 /* LocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStore.swift; sourceTree = "<group>"; };
 		D6A9C0A21A12CBD5C3178FC3 /* CrewPickApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewPickApp.swift; sourceTree = "<group>"; };
 		E8E67C26E9709ACB4004F33F /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				EA3886E9EF97E63453CFA05E /* BoardEngine.swift */,
+				ABD33D17AF33E2B1401B6E32 /* DeepLinks.swift */,
 				D2A3605F8E9DCD552476D7B3 /* LocalStore.swift */,
 				9D4B99122C847A72873C6FF1 /* Models.swift */,
 				527FD74D9BD2AB2443B6A549 /* Repositories.swift */,
@@ -217,6 +220,7 @@
 				C24AA41057420C6FBFBBDF17 /* BoardEngine.swift in Sources */,
 				72A071D5BBE4429AA2E9318E /* CrewPickApp.swift in Sources */,
 				64CF7D28F6B9FDEE6CFBCCCD /* DecideView.swift in Sources */,
+				FC0DE19271C00614039E100B /* DeepLinks.swift in Sources */,
 				620AA2D80E1B16215796119D /* DesignSystem.swift in Sources */,
 				1C9192701D3F44846C221781 /* GroupBoardView.swift in Sources */,
 				0F75E47775DBD3A8CB4B0692 /* GroupMembersView.swift in Sources */,
