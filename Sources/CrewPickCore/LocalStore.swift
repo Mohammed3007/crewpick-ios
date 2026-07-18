@@ -21,6 +21,32 @@ public actor LocalStore: GroupRepository, IdeaRepository {
         return group
     }
 
+    public func joinGroup(code: String, user: User) async throws -> FriendGroup {
+        guard InviteCode.isValid(code) else { throw RepositoryError.invalidInvite }
+        if InviteCode.normalize(code) == "TRIV88" {
+            if let existing = storedGroups.first(where: { $0.name == "Trivia Squad" }) { return existing }
+            let group = FriendGroup(name: "Trivia Squad", emoji: "🧠", members: [
+                .init(user: user, role: .member), .init(user: SampleData.maya, role: .admin)
+            ])
+            storedGroups.append(group)
+            return group
+        }
+        throw RepositoryError.invalidInvite
+    }
+
+    public func removeMember(_ userID: UUID, from groupID: UUID, requestedBy: UUID) async throws -> FriendGroup {
+        guard let groupIndex = storedGroups.firstIndex(where: { $0.id == groupID }) else { throw RepositoryError.groupNotFound }
+        guard storedGroups[groupIndex].members.contains(where: { $0.user.id == requestedBy && $0.role == .admin }) else {
+            throw RepositoryError.permissionDenied
+        }
+        guard let member = storedGroups[groupIndex].members.first(where: { $0.user.id == userID }) else { throw RepositoryError.permissionDenied }
+        if member.role == .admin && storedGroups[groupIndex].members.filter({ $0.role == .admin }).count == 1 {
+            throw RepositoryError.cannotRemoveLastAdmin
+        }
+        storedGroups[groupIndex].members.removeAll { $0.user.id == userID }
+        return storedGroups[groupIndex]
+    }
+
     public func ideas(in groupID: UUID) async throws -> [Idea] {
         guard storedGroups.contains(where: { $0.id == groupID }) else { throw RepositoryError.groupNotFound }
         return storedIdeas.filter { $0.groupID == groupID }
@@ -49,6 +75,26 @@ public actor LocalStore: GroupRepository, IdeaRepository {
         storedIdeas[index] = ReactionRules.applying(reaction, by: userID, to: storedIdeas[index])
         return storedIdeas[index]
     }
+
+    public func addComment(_ body: String, ideaID: UUID, author: User) async throws -> Idea {
+        guard let index = storedIdeas.firstIndex(where: { $0.id == ideaID }) else { throw RepositoryError.ideaNotFound }
+        let trimmed = body.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { throw RepositoryError.invalidTitle }
+        storedIdeas[index].comments.append(Comment(author: author, body: trimmed))
+        return storedIdeas[index]
+    }
+
+    public func setStatus(_ status: IdeaStatus, ideaID: UUID) async throws -> Idea {
+        guard let index = storedIdeas.firstIndex(where: { $0.id == ideaID }) else { throw RepositoryError.ideaNotFound }
+        if status == .planned {
+            let groupID = storedIdeas[index].groupID
+            for candidate in storedIdeas.indices where storedIdeas[candidate].groupID == groupID && storedIdeas[candidate].status == .planned {
+                storedIdeas[candidate].status = .board
+            }
+        }
+        storedIdeas[index].status = status
+        return storedIdeas[index]
+    }
 }
 
 private extension String {
@@ -57,4 +103,3 @@ private extension String {
         return value.isEmpty ? nil : value
     }
 }
-

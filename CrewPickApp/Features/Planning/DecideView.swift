@@ -23,7 +23,9 @@ struct DecideView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Close") { dismiss() } } }
             .confirmationDialog("Mark as Planned?", isPresented: Binding(get: { selected != nil }, set: { if !$0 { selected = nil } }), presenting: selected) { idea in
-                Button("Mark \(idea.title) as Planned") { model.markPlanned(idea, in: group.id); dismiss() }
+                Button("Mark \(idea.title) as Planned") {
+                    Task { await model.markPlanned(idea, in: group.id); dismiss() }
+                }
                 Button("Cancel", role: .cancel) { selected = nil }
             } message: { idea in Text("It will appear as the active plan on \(group.name).") }
         }

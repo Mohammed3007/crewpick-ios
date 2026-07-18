@@ -158,6 +158,46 @@ public enum NotificationFrequency: String, CaseIterable, Codable, Sendable {
     case off = "Off"
 }
 
+public enum ActivityKind: String, Codable, Sendable {
+    case ideaAdded, reactionChanged, commentAdded, planCreated, planCompleted, memberJoined
+}
+
+public struct ActivityEvent: Codable, Hashable, Identifiable, Sendable {
+    public let id: UUID
+    public let groupID: UUID
+    public let actor: User
+    public let kind: ActivityKind
+    public let message: String
+    public let createdAt: Date
+    public let ideaID: UUID?
+
+    public init(id: UUID = UUID(), groupID: UUID, actor: User, kind: ActivityKind, message: String, createdAt: Date = .now, ideaID: UUID? = nil) {
+        self.id = id
+        self.groupID = groupID
+        self.actor = actor
+        self.kind = kind
+        self.message = message
+        self.createdAt = createdAt
+        self.ideaID = ideaID
+    }
+}
+
+public struct GroupInvite: Codable, Hashable, Identifiable, Sendable {
+    public let id: UUID
+    public let groupID: UUID
+    public let code: String
+    public let createdBy: UUID
+    public let expiresAt: Date
+
+    public init(id: UUID = UUID(), groupID: UUID, code: String, createdBy: UUID, expiresAt: Date) {
+        self.id = id
+        self.groupID = groupID
+        self.code = code
+        self.createdBy = createdBy
+        self.expiresAt = expiresAt
+    }
+}
+
 public struct IdeaDraft: Hashable, Sendable {
     public var title: String
     public var category: IdeaCategory
@@ -175,4 +215,3 @@ public struct IdeaDraft: Hashable, Sendable {
         self.sourceURL = sourceURL
     }
 }
-

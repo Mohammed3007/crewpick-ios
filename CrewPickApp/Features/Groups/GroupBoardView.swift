@@ -8,6 +8,9 @@ struct GroupBoardView: View {
     @State private var sort: BoardSort = .topRanked
     @State private var showingAdd = false
     @State private var showingDecide = false
+    @State private var showingMembers = false
+
+    private var currentGroup: FriendGroup { model.group(id: group.id) ?? group }
 
     private var ideas: [Idea] {
         BoardEngine.ranked(
@@ -24,12 +27,8 @@ struct GroupBoardView: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 12) {
-                if model.isOffline {
-                    Label("You're offline — changes sync when you're back.", systemImage: "wifi.slash")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(CrewPickTheme.warning)
-                }
-                if let plannedIdea { ActivePlanCard(idea: plannedIdea) { model.markCompleted(plannedIdea, in: group.id) } }
+                if model.isOffline { OfflineBanner(message: "You're offline — changes sync when you're back.") }
+                if let plannedIdea { ActivePlanCard(idea: plannedIdea) { Task { await model.markCompleted(plannedIdea, in: group.id) } } }
                 filters
                 if ideas.isEmpty {
                     EmptyState(
@@ -62,13 +61,14 @@ struct GroupBoardView: View {
             .padding(.vertical, 10)
             .background(.ultraThinMaterial)
         }
-        .navigationTitle("\(group.emoji) \(group.name)")
+        .navigationTitle("\(currentGroup.emoji) \(currentGroup.name)")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar { Button("Members", systemImage: "person.3") {} }
+        .toolbar { Button("Members", systemImage: "person.3") { showingMembers = true } }
         .navigationDestination(for: Idea.self) { IdeaDetailView(ideaID: $0.id, group: group) }
         .task { await model.loadIdeas(groupID: group.id) }
         .sheet(isPresented: $showingAdd) { AddIdeaView(group: group) }
         .sheet(isPresented: $showingDecide) { DecideView(group: group) }
+        .sheet(isPresented: $showingMembers) { GroupMembersView(groupID: group.id) }
     }
 
     private var filters: some View {

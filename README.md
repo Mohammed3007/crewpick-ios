@@ -9,6 +9,7 @@ The repository contains:
 - A dependency-free domain/data library in `Sources/CrewPickCore`.
 - A local actor-backed repository and deterministic Toronto sample data.
 - SwiftUI Groups, Board, Idea Details, Add Idea, reaction, shortlist, Planned, and Completed flows in `CrewPickApp`.
+- Local onboarding/sign-in, create/join group, invitation sharing, member administration, comments, activity, notification preferences, and offline/error states.
 - Swift Testing coverage with a conditional XCTest fallback for incomplete Command Line Tools installations.
 - An XcodeGen project definition with branding and bundle identifiers isolated in build settings.
 
@@ -46,7 +47,7 @@ That check exercises the same ranking, filtering, reaction, URL, invitation, and
 The baseline was verified with Xcode 26.6, XcodeGen 2.46.0, and the iOS 26.5 Simulator runtime:
 
 - Generic iOS Simulator build succeeded.
-- All 10 Swift Testing tests passed.
+- All 16 Swift Testing tests passed.
 - The app installed and launched on an iPhone 17 Pro simulator.
 
 ## Architecture

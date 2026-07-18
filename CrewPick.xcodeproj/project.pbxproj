@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F75E47775DBD3A8CB4B0692 /* GroupMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5098A8AEF7B6B6ED8F10ABDD /* GroupMembersView.swift */; };
 		18D39F2DB3A3A244608F30E9 /* SharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E67C26E9709ACB4004F33F /* SharedComponents.swift */; };
 		1C9192701D3F44846C221781 /* GroupBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1A2D654471DBE4DE7A693 /* GroupBoardView.swift */; };
 		25DD99EF2A7B1926EE580C5F /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B99122C847A72873C6FF1 /* Models.swift */; };
@@ -27,6 +28,7 @@
 		25288F14F00FB9E1157B3706 /* DecideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecideView.swift; sourceTree = "<group>"; };
 		3B3B5FE5DFE60DAF8C9BC0C4 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		44BF2D716962B7B88A07FA99 /* URLNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLNormalizer.swift; sourceTree = "<group>"; };
+		5098A8AEF7B6B6ED8F10ABDD /* GroupMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersView.swift; sourceTree = "<group>"; };
 		527FD74D9BD2AB2443B6A549 /* Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
 		55E1A2D654471DBE4DE7A693 /* GroupBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoardView.swift; sourceTree = "<group>"; };
 		568C9650450B02721D35101F /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				55E1A2D654471DBE4DE7A693 /* GroupBoardView.swift */,
+				5098A8AEF7B6B6ED8F10ABDD /* GroupMembersView.swift */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				64CF7D28F6B9FDEE6CFBCCCD /* DecideView.swift in Sources */,
 				620AA2D80E1B16215796119D /* DesignSystem.swift in Sources */,
 				1C9192701D3F44846C221781 /* GroupBoardView.swift in Sources */,
+				0F75E47775DBD3A8CB4B0692 /* GroupMembersView.swift in Sources */,
 				97F2559F3566A2BADE726F46 /* IdeaFlows.swift in Sources */,
 				F98F2F6CBD313C60B375EAE3 /* LocalStore.swift in Sources */,
 				25DD99EF2A7B1926EE580C5F /* Models.swift in Sources */,

@@ -4,6 +4,8 @@ struct IdeaDetailView: View {
     @EnvironmentObject private var model: AppModel
     let ideaID: UUID
     let group: FriendGroup
+    @State private var commentText = ""
+    @FocusState private var commentFocused: Bool
 
     private var idea: Idea? { model.ideasByGroup[group.id]?.first(where: { $0.id == ideaID }) }
 
@@ -31,9 +33,13 @@ struct IdeaDetailView: View {
                             Text("Comments").font(.headline)
                             if idea.comments.isEmpty { Text("No comments yet.").foregroundStyle(.secondary) }
                             ForEach(idea.comments) { comment in
-                                VStack(alignment: .leading, spacing: 3) {
-                                    Text(comment.author.displayName).font(.subheadline.bold())
-                                    Text(comment.body)
+                                HStack(alignment: .top, spacing: 10) {
+                                    Text(comment.author.displayName.prefix(1)).font(.caption.bold()).foregroundStyle(.white)
+                                        .frame(width: 30, height: 30).background(CrewPickTheme.accent, in: Circle())
+                                    VStack(alignment: .leading, spacing: 3) {
+                                        Text(comment.author.displayName).font(.subheadline.bold())
+                                        Text(comment.body)
+                                    }
                                 }
                             }
                         }
@@ -41,6 +47,23 @@ struct IdeaDetailView: View {
                     }
                 }
                 .ignoresSafeArea(edges: .top)
+                .safeAreaInset(edge: .bottom) {
+                    HStack(spacing: 10) {
+                        TextField("Add a comment", text: $commentText, axis: .vertical)
+                            .lineLimit(1...4).focused($commentFocused)
+                            .padding(.horizontal, 14).frame(minHeight: 44)
+                            .background(Color(.secondarySystemBackground), in: Capsule())
+                        Button("Post", systemImage: "arrow.up.circle.fill") {
+                            let body = commentText
+                            commentText = ""; commentFocused = false
+                            Task { await model.addComment(body, to: idea.id, in: group.id) }
+                        }
+                        .labelStyle(.iconOnly).font(.title2)
+                        .disabled(commentText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        .accessibilityLabel("Post comment")
+                    }
+                    .padding(.horizontal).padding(.vertical, 8).background(.ultraThinMaterial)
+                }
             } else {
                 ContentUnavailableView("Idea unavailable", systemImage: "exclamationmark.triangle")
             }
@@ -101,4 +124,3 @@ struct AddIdeaView: View {
         }
     }
 }
-
