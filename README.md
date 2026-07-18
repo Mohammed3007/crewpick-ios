@@ -13,6 +13,8 @@ The repository contains:
 - A native Share Extension that lets someone choose a CrewPick group before queueing a URL, with App Group handoff into the add-idea flow.
 - Custom/universal deep-link routing for invitations, groups, ideas, and plans, including access checks and normalized duplicate detection.
 - Local link-preview metadata with an editable fallback when metadata is unavailable.
+- Real iOS notification authorization states, APNs registration callbacks, and per-group preference persistence.
+- A dependency-free authenticated Supabase REST/RPC boundary plus server migrations for atomic groups, secure invitations, notification preferences, and device registration.
 - Swift Testing coverage with a conditional XCTest fallback for incomplete Command Line Tools installations.
 - An XcodeGen project definition with branding and bundle identifiers isolated in build settings.
 
@@ -52,7 +54,7 @@ That check exercises the same ranking, filtering, reaction, URL, invitation, and
 The baseline was verified with Xcode 26.6, XcodeGen 2.46.0, and the iOS 26.5 Simulator runtime:
 
 - Generic iOS Simulator build succeeded.
-- All 23 Swift Testing tests passed.
+- All 27 Swift Testing tests passed.
 - The app installed and launched on an iPhone 17 Pro simulator.
 - The embedded share-extension target compiled and passed Xcode’s embedded-binary validation.
 

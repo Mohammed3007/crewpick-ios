@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01B57999B10DECC4513F3C91 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B86AB40BF017FE7A6C992E /* SupabaseClient.swift */; };
 		0F75E47775DBD3A8CB4B0692 /* GroupMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5098A8AEF7B6B6ED8F10ABDD /* GroupMembersView.swift */; };
 		18D39F2DB3A3A244608F30E9 /* SharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E67C26E9709ACB4004F33F /* SharedComponents.swift */; };
 		1C9192701D3F44846C221781 /* GroupBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1A2D654471DBE4DE7A693 /* GroupBoardView.swift */; };
@@ -20,6 +21,7 @@
 		64CF7D28F6B9FDEE6CFBCCCD /* DecideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25288F14F00FB9E1157B3706 /* DecideView.swift */; };
 		70A26594D3BD3B58A0BC6247 /* DeepLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD33D17AF33E2B1401B6E32 /* DeepLinks.swift */; };
 		72A071D5BBE4429AA2E9318E /* CrewPickApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A9C0A21A12CBD5C3178FC3 /* CrewPickApp.swift */; };
+		880CB3B7CEF715545A1E215C /* AppNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCE2B6FE0F05BAF407A29BE /* AppNotifications.swift */; };
 		97F2559F3566A2BADE726F46 /* IdeaFlows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C338B9B9E6E58F66C0D2D1 /* IdeaFlows.swift */; };
 		A4714C4BB67822F7E98B0460 /* LocalLinkMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CFBD32B59ADF3047C93F3 /* LocalLinkMetadataProvider.swift */; };
 		B3B749016F5AB81E9D40FCB8 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFC5B61C893A79B7D1AA599 /* ShareViewController.swift */; };
@@ -57,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		10B86AB40BF017FE7A6C992E /* SupabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseClient.swift; sourceTree = "<group>"; };
 		25288F14F00FB9E1157B3706 /* DecideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecideView.swift; sourceTree = "<group>"; };
 		2594D9F3090C151E7D2A0A70 /* CrewPick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CrewPick.entitlements; sourceTree = "<group>"; };
 		3B3B5FE5DFE60DAF8C9BC0C4 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
@@ -67,6 +70,7 @@
 		550F79D6060B5489C7CE0EE1 /* CrewPickShareExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = CrewPickShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E1A2D654471DBE4DE7A693 /* GroupBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoardView.swift; sourceTree = "<group>"; };
 		568C9650450B02721D35101F /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		5DCE2B6FE0F05BAF407A29BE /* AppNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotifications.swift; sourceTree = "<group>"; };
 		60C1DBEDBBFC648CAE8F2ED6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		612782D3AFBF0449233AB11B /* CrewPick.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CrewPick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		709E6C1FA0C36341284E6227 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -79,6 +83,7 @@
 		CE5CFBD32B59ADF3047C93F3 /* LocalLinkMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLinkMetadataProvider.swift; sourceTree = "<group>"; };
 		D2A3605F8E9DCD552476D7B3 /* LocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStore.swift; sourceTree = "<group>"; };
 		D6A9C0A21A12CBD5C3178FC3 /* CrewPickApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewPickApp.swift; sourceTree = "<group>"; };
+		DAAFD9BF38978599A06E3E2C /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		E8E67C26E9709ACB4004F33F /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
 		EA3886E9EF97E63453CFA05E /* BoardEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardEngine.swift; sourceTree = "<group>"; };
 		F4CA184D000A6432469E7130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -88,6 +93,7 @@
 		04769C79E460A682634FE410 = {
 			isa = PBXGroup;
 			children = (
+				1DA3F4487BBF39380F31DD0F /* Config */,
 				15CFB776DF3A570EC617AD2C /* CrewPickApp */,
 				7071701073A641071B725A6E /* CrewPickShareExtension */,
 				BDDB3B5A32ED7B0CB2684BEA /* Sources */,
@@ -99,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				568C9650450B02721D35101F /* AppModel.swift */,
+				5DCE2B6FE0F05BAF407A29BE /* AppNotifications.swift */,
 				D6A9C0A21A12CBD5C3178FC3 /* CrewPickApp.swift */,
 			);
 			path = App;
@@ -123,6 +130,14 @@
 				A8A16100F22A920E01B29BD1 /* DesignSystem.swift */,
 			);
 			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		1DA3F4487BBF39380F31DD0F /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				DAAFD9BF38978599A06E3E2C /* Base.xcconfig */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		22349550C790C54B7E88525C /* Features */ = {
@@ -190,6 +205,7 @@
 				527FD74D9BD2AB2443B6A549 /* Repositories.swift */,
 				3B3B5FE5DFE60DAF8C9BC0C4 /* SampleData.swift */,
 				536CE1CD9411FE0F20AF7FFD /* SharedImportStore.swift */,
+				10B86AB40BF017FE7A6C992E /* SupabaseClient.swift */,
 				44BF2D716962B7B88A07FA99 /* URLNormalizer.swift */,
 			);
 			path = CrewPickCore;
@@ -315,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33C424F7A6DEA1C712DDE874 /* AppModel.swift in Sources */,
+				880CB3B7CEF715545A1E215C /* AppNotifications.swift in Sources */,
 				C24AA41057420C6FBFBBDF17 /* BoardEngine.swift in Sources */,
 				72A071D5BBE4429AA2E9318E /* CrewPickApp.swift in Sources */,
 				64CF7D28F6B9FDEE6CFBCCCD /* DecideView.swift in Sources */,
@@ -331,6 +348,7 @@
 				CB1B7D7BE756AF081A111DFF /* SampleData.swift in Sources */,
 				18D39F2DB3A3A244608F30E9 /* SharedComponents.swift in Sources */,
 				EDFD274F17BF010125B57E29 /* SharedImportStore.swift in Sources */,
+				01B57999B10DECC4513F3C91 /* SupabaseClient.swift in Sources */,
 				DEB33BA10F03F7B002F0104E /* URLNormalizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,6 +446,7 @@
 		};
 		A170D6D523905870C639EF5F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAAFD9BF38978599A06E3E2C /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -493,6 +512,7 @@
 		};
 		B9EADAF8162CEBC87108A5C5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAAFD9BF38978599A06E3E2C /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

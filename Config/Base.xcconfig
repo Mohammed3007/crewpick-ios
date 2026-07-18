@@ -1,0 +1,4 @@
+// Public build configuration. Secrets.xcconfig is intentionally gitignored.
+SUPABASE_URL =
+SUPABASE_ANON_KEY =
+#include? "Secrets.xcconfig"

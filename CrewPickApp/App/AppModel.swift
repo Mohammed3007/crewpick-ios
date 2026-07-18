@@ -19,11 +19,13 @@ final class AppModel: ObservableObject {
     private let groupRepository: any GroupRepository
     private let ideaRepository: any IdeaRepository
     private let metadataProvider: any LinkMetadataProviding
+    private let notificationRegistrar: any NotificationRegistering
 
     init(store: LocalStore, currentUser: User) {
         self.groupRepository = store
         self.ideaRepository = store
         self.metadataProvider = LocalLinkMetadataProvider()
+        self.notificationRegistrar = store
         self.currentUser = currentUser
         self.activity = [
             ActivityEvent(groupID: SampleData.weekendCrewID, actor: SampleData.priya, kind: .ideaAdded, message: "Priya added Blue Jays vs. Red Sox", createdAt: .now.addingTimeInterval(-86_400), ideaID: SampleData.ideas[2].id),
@@ -130,7 +132,20 @@ final class AppModel: ObservableObject {
     func group(id: UUID) -> FriendGroup? { groups.first { $0.id == id } }
 
     func setNotificationPreference(_ value: NotificationFrequency, for groupID: UUID) {
+        let previous = notificationPreferences[groupID]
         notificationPreferences[groupID] = value
+        Task {
+            do { try await notificationRegistrar.setPreference(value, groupID: groupID) }
+            catch {
+                notificationPreferences[groupID] = previous
+                alertMessage = "That notification preference couldn't be saved."
+            }
+        }
+    }
+
+    func registerDeviceToken(_ token: Data) async {
+        do { try await notificationRegistrar.register(deviceToken: token) }
+        catch { alertMessage = "Push notifications couldn't be connected to your account." }
     }
 
     func handle(url: URL) async {

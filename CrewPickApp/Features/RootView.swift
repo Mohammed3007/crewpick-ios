@@ -271,6 +271,7 @@ private struct ActivityView: View {
 
 private struct ProfileView: View {
     @EnvironmentObject private var model: AppModel
+    @EnvironmentObject private var notifications: NotificationManager
     let onSignOut: () -> Void
 
     var body: some View {
@@ -292,6 +293,23 @@ private struct ProfileView: View {
                 Text("Group notifications")
             } footer: {
                 Text("New ideas notify everyone except the contributor. Reaction notifications are off in v1.")
+            }
+            Section("Device notifications") {
+                LabeledContent("Permission", value: notifications.permissionState.label)
+                switch notifications.permissionState {
+                case .notRequested:
+                    Button("Enable notifications") { Task { await notifications.requestPermission() } }
+                case .denied:
+                    Button("Open notification settings") { notifications.openSettings() }
+                case .authorized:
+                    Label("This device can receive CrewPick updates.", systemImage: "checkmark.circle.fill")
+                        .foregroundStyle(.green)
+                case .unknown:
+                    ProgressView()
+                }
+                if let error = notifications.registrationError {
+                    Text(error).font(.caption).foregroundStyle(.secondary)
+                }
             }
             Section("Developer preview") { Toggle("Simulate offline", isOn: $model.isOffline) }
             Section { Button("Sign out", role: .destructive, action: onSignOut) }

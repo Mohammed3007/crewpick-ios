@@ -1,8 +1,10 @@
 import Foundation
 
-public actor LocalStore: GroupRepository, IdeaRepository {
+public actor LocalStore: GroupRepository, IdeaRepository, NotificationRegistering {
     private var storedGroups: [FriendGroup]
     private var storedIdeas: [Idea]
+    private var deviceToken: Data?
+    private var notificationPreferences: [UUID: NotificationFrequency] = [:]
 
     public init(groups: [FriendGroup], ideas: [Idea]) {
         self.storedGroups = groups
@@ -94,6 +96,15 @@ public actor LocalStore: GroupRepository, IdeaRepository {
         }
         storedIdeas[index].status = status
         return storedIdeas[index]
+    }
+
+    public func register(deviceToken: Data) async throws {
+        self.deviceToken = deviceToken
+    }
+
+    public func setPreference(_ frequency: NotificationFrequency, groupID: UUID) async throws {
+        guard storedGroups.contains(where: { $0.id == groupID }) else { throw RepositoryError.groupNotFound }
+        notificationPreferences[groupID] = frequency
     }
 }
 

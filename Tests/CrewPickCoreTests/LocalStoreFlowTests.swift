@@ -54,5 +54,14 @@ struct LocalStoreFlowTests {
         #expect(ideas.first(where: { $0.id == SampleData.ideas[0].id })?.status == .board)
         #expect(ideas.first(where: { $0.id == SampleData.ideas[1].id })?.status == .planned)
     }
+
+    @Test("Notification preferences reject unknown groups")
+    func notificationPreferenceValidation() async throws {
+        let store = SampleData.store()
+        try await store.setPreference(.dailyDigest, groupID: SampleData.weekendCrewID)
+        await #expect(throws: RepositoryError.groupNotFound) {
+            try await store.setPreference(.off, groupID: UUID())
+        }
+    }
 }
 #endif

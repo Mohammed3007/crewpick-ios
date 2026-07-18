@@ -12,6 +12,9 @@ settings:
 configs:
   Debug: debug
   Release: release
+configFiles:
+  Debug: Config/Base.xcconfig
+  Release: Config/Base.xcconfig
 targets:
   CrewPick:
     type: application

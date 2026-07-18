@@ -1,20 +1,19 @@
 # Supabase setup
 
-The migration defines the v1 data model, indexes, constraints, and Row Level Security. Apply it to a new project with the Supabase CLI:
+The migrations define the v1 data model, indexes, constraints, Row Level Security, profile bootstrap trigger, atomic group/invitation RPCs, notification preference RPC, and APNs device registration. Apply them to a new project with the Supabase CLI:
 
 ```sh
 supabase link --project-ref YOUR_PROJECT_REF
 supabase db push
 ```
 
-Security-sensitive invitation acceptance, profile bootstrapping, activity creation, metadata fetching, and APNs dispatch must be implemented as server-side functions before enabling the remote repositories. Invitation codes must be generated randomly and stored only as hashes; the iOS client must never receive a service-role key.
+Invitation codes are generated server-side and retained only as hashes; plaintext is returned once to the creating admin. The iOS client must never receive a service-role key. The repository includes a public-key-only REST/RPC transport, but remote mode should not be enabled until an Auth session is wired and the policies below are exercised against a real project.
 
 Before production:
 
 - Replace the example bundle and App Group identifiers.
 - Configure Apple and email auth redirect URLs.
-- Add a transactional `create_group` function that creates the group and its first admin membership together.
-- Add a rate-limited `accept_invite` function that hashes the supplied code and increments usage atomically.
-- Add database triggers for `updated_at` and trusted activity events.
 - Test every RLS policy using two users in different groups.
+- Add trusted activity-event triggers and the rate limits appropriate for the chosen Supabase plan.
+- Implement and deploy the metadata-fetch and APNs-dispatch Edge Functions.
 - Store APNs signing material only in the server secret store.
