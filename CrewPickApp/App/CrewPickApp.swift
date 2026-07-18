@@ -9,7 +9,7 @@ struct CrewPickApp: App {
             RootView()
                 .environmentObject(model)
                 .tint(CrewPickTheme.accent)
+                .onOpenURL { url in Task { await model.handle(url: url) } }
         }
     }
 }
-

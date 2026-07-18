@@ -12,14 +12,18 @@ final class AppModel: ObservableObject {
     @Published var state: LoadState = .idle
     @Published var isOffline = false
     @Published var alertMessage: String?
+    @Published var deepLinkDestination: DeepLinkDestination?
+    @Published var incomingImport: PendingImport?
 
     let currentUser: User
     private let groupRepository: any GroupRepository
     private let ideaRepository: any IdeaRepository
+    private let metadataProvider: any LinkMetadataProviding
 
     init(store: LocalStore, currentUser: User) {
         self.groupRepository = store
         self.ideaRepository = store
+        self.metadataProvider = LocalLinkMetadataProvider()
         self.currentUser = currentUser
         self.activity = [
             ActivityEvent(groupID: SampleData.weekendCrewID, actor: SampleData.priya, kind: .ideaAdded, message: "Priya added Blue Jays vs. Red Sox", createdAt: .now.addingTimeInterval(-86_400), ideaID: SampleData.ideas[2].id),
@@ -32,6 +36,8 @@ final class AppModel: ObservableObject {
         state = .loading
         do {
             groups = try await groupRepository.groups(for: currentUser.id)
+            cacheGroupsForExtension()
+            incomingImport = SharedImportStore()?.pendingImports().first
             state = .loaded
         } catch {
             state = .failed("We couldn't load your groups. Pull to try again.")
@@ -62,9 +68,14 @@ final class AppModel: ObservableObject {
         activity.insert(.init(groupID: groupID, actor: currentUser, kind: .ideaAdded, message: "You added \(idea.title)", ideaID: idea.id), at: 0)
     }
 
+    func importPreview(for url: URL) async throws -> IdeaDraft {
+        try await metadataProvider.metadata(for: url)
+    }
+
     func createGroup(name: String, emoji: String) async throws -> FriendGroup {
         let group = try await groupRepository.createGroup(name: name, emoji: emoji, owner: currentUser)
         groups.append(group)
+        cacheGroupsForExtension()
         ideasByGroup[group.id] = []
         notificationPreferences[group.id] = .instant
         return group
@@ -73,6 +84,7 @@ final class AppModel: ObservableObject {
     func joinGroup(code: String) async throws -> FriendGroup {
         let group = try await groupRepository.joinGroup(code: code, user: currentUser)
         if !groups.contains(where: { $0.id == group.id }) { groups.append(group) }
+        cacheGroupsForExtension()
         notificationPreferences[group.id] = .instant
         activity.insert(.init(groupID: group.id, actor: currentUser, kind: .memberJoined, message: "You joined \(group.name)"), at: 0)
         return group
@@ -119,6 +131,29 @@ final class AppModel: ObservableObject {
 
     func setNotificationPreference(_ value: NotificationFrequency, for groupID: UUID) {
         notificationPreferences[groupID] = value
+    }
+
+    func handle(url: URL) async {
+        guard let destination = DeepLinkDestination(url: url) else {
+            alertMessage = "That CrewPick link isn't valid."
+            return
+        }
+        if case .invitation(let code) = destination {
+            do { _ = try await joinGroup(code: code) }
+            catch { alertMessage = "That invitation is invalid or expired." }
+        } else {
+            deepLinkDestination = destination
+        }
+    }
+
+    func completeIncomingImport(_ id: UUID) {
+        try? SharedImportStore()?.remove(id: id)
+        incomingImport = SharedImportStore()?.pendingImports().first
+    }
+
+    private func cacheGroupsForExtension() {
+        let summaries = groups.map { SharedGroupSummary(id: $0.id, name: $0.name, emoji: $0.emoji) }
+        try? SharedImportStore()?.saveGroups(summaries)
     }
 
     private func replace(_ idea: Idea, in groupID: UUID) {

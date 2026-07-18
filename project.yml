@@ -19,19 +19,55 @@ targets:
     sources:
       - path: Sources/CrewPickCore
       - path: CrewPickApp
+    dependencies:
+      - target: CrewPickShareExtension
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.example.crewpick
         PRODUCT_NAME: CrewPick
         PRODUCT_DISPLAY_NAME: CrewPick
-        GENERATE_INFOPLIST_FILE: true
-        INFOPLIST_KEY_CFBundleDisplayName: "$(PRODUCT_DISPLAY_NAME)"
-        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: true
-        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: true
-        INFOPLIST_KEY_UILaunchScreen_Generation: true
+        GENERATE_INFOPLIST_FILE: false
         TARGETED_DEVICE_FAMILY: "1"
         SUPPORTS_MACCATALYST: false
         ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: true
+        CODE_SIGN_ENTITLEMENTS: CrewPickApp/CrewPick.entitlements
+    info:
+      path: CrewPickApp/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: "$(PRODUCT_DISPLAY_NAME)"
+        CFBundleShortVersionString: 1.0.0
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        CFBundleURLTypes:
+          - CFBundleURLName: com.example.crewpick
+            CFBundleURLSchemes: [crewpick]
     scheme:
       testTargets: []
-
+  CrewPickShareExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: CrewPickShareExtension
+      - path: Sources/CrewPickCore/DeepLinks.swift
+      - path: Sources/CrewPickCore/SharedImportStore.swift
+      - path: Sources/CrewPickCore/URLNormalizer.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.crewpick.share
+        PRODUCT_NAME: CrewPickShare
+        SKIP_INSTALL: true
+        CODE_SIGN_ENTITLEMENTS: CrewPickShareExtension/CrewPickShare.entitlements
+    info:
+      path: CrewPickShareExtension/Info.plist
+      properties:
+        CFBundleDisplayName: CrewPick
+        CFBundleShortVersionString: 1.0.0
+        CFBundleVersion: "1"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.share-services
+          NSExtensionPrincipalClass: "$(PRODUCT_MODULE_NAME).ShareViewController"
+          NSExtensionAttributes:
+            NSExtensionActivationRule:
+              NSExtensionActivationSupportsWebURLWithMaxCount: 1

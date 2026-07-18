@@ -76,19 +76,64 @@ private struct OnboardingView: View {
 private struct MainTabView: View {
     @EnvironmentObject private var model: AppModel
     let onSignOut: () -> Void
+    @State private var selectedTab = 0
+    @State private var groupPath = NavigationPath()
 
     var body: some View {
-        TabView {
-            NavigationStack { GroupListView() }
+        TabView(selection: $selectedTab) {
+            NavigationStack(path: $groupPath) { GroupListView() }
                 .tabItem { Label("Groups", systemImage: "person.3.fill") }
+                .tag(0)
 
             NavigationStack { ActivityView() }
                 .tabItem { Label("Activity", systemImage: "bell.fill") }
+                .tag(1)
 
             NavigationStack { ProfileView(onSignOut: onSignOut) }
                 .tabItem { Label("Profile", systemImage: "person.crop.circle") }
+                .tag(2)
         }
         .task { if model.state == .idle { await model.loadGroups() } }
+        .onChange(of: model.deepLinkDestination) { _, destination in
+            guard let destination else { return }
+            Task { await route(destination) }
+        }
+        .sheet(item: $model.incomingImport) { pending in
+            if let group = pending.destinationGroupID.flatMap({ model.group(id: $0) }) ?? model.groups.first {
+                AddIdeaView(group: group, initialURL: pending.sourceURL) {
+                    model.completeIncomingImport(pending.id)
+                } onOpenDuplicate: { ideaID in
+                    model.completeIncomingImport(pending.id)
+                    model.deepLinkDestination = .idea(groupID: group.id, ideaID: ideaID)
+                }
+            } else {
+                ContentUnavailableView("Join a group first", systemImage: "person.3", description: Text("Your shared link is safely queued until a destination group is available."))
+            }
+        }
+    }
+
+    private func route(_ destination: DeepLinkDestination) async {
+        selectedTab = 0
+        groupPath = NavigationPath()
+        let groupID: UUID
+        switch destination {
+        case .group(let id): groupID = id
+        case .idea(let id, _): groupID = id
+        case .plan(let id, _): groupID = id
+        case .invitation: return
+        }
+        guard let group = model.group(id: groupID) else {
+            model.alertMessage = "You don't have access to that private group."
+            model.deepLinkDestination = nil
+            return
+        }
+        groupPath.append(group)
+        await model.loadIdeas(groupID: groupID)
+        if case .idea(_, let ideaID) = destination,
+           let idea = model.ideasByGroup[groupID]?.first(where: { $0.id == ideaID }) {
+            groupPath.append(idea)
+        }
+        model.deepLinkDestination = nil
     }
 }
 

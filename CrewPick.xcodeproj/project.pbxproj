@@ -13,36 +13,75 @@
 		25DD99EF2A7B1926EE580C5F /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B99122C847A72873C6FF1 /* Models.swift */; };
 		33C424F7A6DEA1C712DDE874 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C9650450B02721D35101F /* AppModel.swift */; };
 		33FEC568C8E90F0FEE2CF138 /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527FD74D9BD2AB2443B6A549 /* Repositories.swift */; };
+		5AB097BAA382CDF401A54ACF /* CrewPickShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 550F79D6060B5489C7CE0EE1 /* CrewPickShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5EA0F8E433D4C31208D1D07E /* URLNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BF2D716962B7B88A07FA99 /* URLNormalizer.swift */; };
+		60242F142E42D7B04D86AA2D /* SharedImportStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536CE1CD9411FE0F20AF7FFD /* SharedImportStore.swift */; };
 		620AA2D80E1B16215796119D /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A16100F22A920E01B29BD1 /* DesignSystem.swift */; };
 		64CF7D28F6B9FDEE6CFBCCCD /* DecideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25288F14F00FB9E1157B3706 /* DecideView.swift */; };
+		70A26594D3BD3B58A0BC6247 /* DeepLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD33D17AF33E2B1401B6E32 /* DeepLinks.swift */; };
 		72A071D5BBE4429AA2E9318E /* CrewPickApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A9C0A21A12CBD5C3178FC3 /* CrewPickApp.swift */; };
 		97F2559F3566A2BADE726F46 /* IdeaFlows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C338B9B9E6E58F66C0D2D1 /* IdeaFlows.swift */; };
+		A4714C4BB67822F7E98B0460 /* LocalLinkMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CFBD32B59ADF3047C93F3 /* LocalLinkMetadataProvider.swift */; };
+		B3B749016F5AB81E9D40FCB8 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFC5B61C893A79B7D1AA599 /* ShareViewController.swift */; };
 		C24AA41057420C6FBFBBDF17 /* BoardEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3886E9EF97E63453CFA05E /* BoardEngine.swift */; };
 		CB1B7D7BE756AF081A111DFF /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B5FE5DFE60DAF8C9BC0C4 /* SampleData.swift */; };
 		DEB33BA10F03F7B002F0104E /* URLNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BF2D716962B7B88A07FA99 /* URLNormalizer.swift */; };
+		EDFD274F17BF010125B57E29 /* SharedImportStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536CE1CD9411FE0F20AF7FFD /* SharedImportStore.swift */; };
 		F98F2F6CBD313C60B375EAE3 /* LocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3605F8E9DCD552476D7B3 /* LocalStore.swift */; };
 		FC0DE19271C00614039E100B /* DeepLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD33D17AF33E2B1401B6E32 /* DeepLinks.swift */; };
 		FC29E8CF29DF8494FCDA9E70 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709E6C1FA0C36341284E6227 /* RootView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		95E3095B17F6CAEFD0F526DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0389E9D84F3F0B6A99A8E3C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 70F7417B52905CBF5209F8E1;
+			remoteInfo = CrewPickShareExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		673E6FA6E7638AF159BFB142 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5AB097BAA382CDF401A54ACF /* CrewPickShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		25288F14F00FB9E1157B3706 /* DecideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecideView.swift; sourceTree = "<group>"; };
+		2594D9F3090C151E7D2A0A70 /* CrewPick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CrewPick.entitlements; sourceTree = "<group>"; };
 		3B3B5FE5DFE60DAF8C9BC0C4 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		44BF2D716962B7B88A07FA99 /* URLNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLNormalizer.swift; sourceTree = "<group>"; };
 		5098A8AEF7B6B6ED8F10ABDD /* GroupMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersView.swift; sourceTree = "<group>"; };
 		527FD74D9BD2AB2443B6A549 /* Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
+		536CE1CD9411FE0F20AF7FFD /* SharedImportStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedImportStore.swift; sourceTree = "<group>"; };
+		550F79D6060B5489C7CE0EE1 /* CrewPickShareExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = CrewPickShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E1A2D654471DBE4DE7A693 /* GroupBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoardView.swift; sourceTree = "<group>"; };
 		568C9650450B02721D35101F /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		60C1DBEDBBFC648CAE8F2ED6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		612782D3AFBF0449233AB11B /* CrewPick.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CrewPick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		709E6C1FA0C36341284E6227 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		83C338B9B9E6E58F66C0D2D1 /* IdeaFlows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaFlows.swift; sourceTree = "<group>"; };
 		9D4B99122C847A72873C6FF1 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		A8A16100F22A920E01B29BD1 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		ABD33D17AF33E2B1401B6E32 /* DeepLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinks.swift; sourceTree = "<group>"; };
+		BDFC5B61C893A79B7D1AA599 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		C48BD579D11EB28F8C6BCE67 /* CrewPickShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CrewPickShare.entitlements; sourceTree = "<group>"; };
+		CE5CFBD32B59ADF3047C93F3 /* LocalLinkMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLinkMetadataProvider.swift; sourceTree = "<group>"; };
 		D2A3605F8E9DCD552476D7B3 /* LocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStore.swift; sourceTree = "<group>"; };
 		D6A9C0A21A12CBD5C3178FC3 /* CrewPickApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewPickApp.swift; sourceTree = "<group>"; };
 		E8E67C26E9709ACB4004F33F /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
 		EA3886E9EF97E63453CFA05E /* BoardEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardEngine.swift; sourceTree = "<group>"; };
+		F4CA184D000A6432469E7130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -50,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				15CFB776DF3A570EC617AD2C /* CrewPickApp */,
+				7071701073A641071B725A6E /* CrewPickShareExtension */,
 				BDDB3B5A32ED7B0CB2684BEA /* Sources */,
 				EBDBE0E82E97A81640205CA3 /* Products */,
 			);
@@ -67,10 +107,12 @@
 		15CFB776DF3A570EC617AD2C /* CrewPickApp */ = {
 			isa = PBXGroup;
 			children = (
+				2594D9F3090C151E7D2A0A70 /* CrewPick.entitlements */,
 				052B823D1674C50A065948C5 /* App */,
 				B43BABE437925E4C1F51FFF9 /* Components */,
 				1ACF045A9452ED37A0BE4225 /* DesignSystem */,
 				22349550C790C54B7E88525C /* Features */,
+				2F0DDEDE8D7E0368707A8E93 /* Resources */,
 			);
 			path = CrewPickApp;
 			sourceTree = "<group>";
@@ -92,6 +134,14 @@
 				7037321E1182D834D1510EC4 /* Planning */,
 			);
 			path = Features;
+			sourceTree = "<group>";
+		};
+		2F0DDEDE8D7E0368707A8E93 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F4CA184D000A6432469E7130 /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		469724FDC2EB5CD11ECA021B /* Ideas */ = {
@@ -119,15 +169,27 @@
 			path = Planning;
 			sourceTree = "<group>";
 		};
+		7071701073A641071B725A6E /* CrewPickShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				C48BD579D11EB28F8C6BCE67 /* CrewPickShare.entitlements */,
+				60C1DBEDBBFC648CAE8F2ED6 /* Info.plist */,
+				BDFC5B61C893A79B7D1AA599 /* ShareViewController.swift */,
+			);
+			path = CrewPickShareExtension;
+			sourceTree = "<group>";
+		};
 		9D20C746C11C9B79B1C85D0C /* CrewPickCore */ = {
 			isa = PBXGroup;
 			children = (
 				EA3886E9EF97E63453CFA05E /* BoardEngine.swift */,
 				ABD33D17AF33E2B1401B6E32 /* DeepLinks.swift */,
+				CE5CFBD32B59ADF3047C93F3 /* LocalLinkMetadataProvider.swift */,
 				D2A3605F8E9DCD552476D7B3 /* LocalStore.swift */,
 				9D4B99122C847A72873C6FF1 /* Models.swift */,
 				527FD74D9BD2AB2443B6A549 /* Repositories.swift */,
 				3B3B5FE5DFE60DAF8C9BC0C4 /* SampleData.swift */,
+				536CE1CD9411FE0F20AF7FFD /* SharedImportStore.swift */,
 				44BF2D716962B7B88A07FA99 /* URLNormalizer.swift */,
 			);
 			path = CrewPickCore;
@@ -153,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				612782D3AFBF0449233AB11B /* CrewPick.app */,
+				550F79D6060B5489C7CE0EE1 /* CrewPickShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -160,15 +223,34 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		70F7417B52905CBF5209F8E1 /* CrewPickShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5640F2A0681A7C5A95A253E9 /* Build configuration list for PBXNativeTarget "CrewPickShareExtension" */;
+			buildPhases = (
+				22B7BBA725976C82580809C4 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CrewPickShareExtension;
+			packageProductDependencies = (
+			);
+			productName = CrewPickShareExtension;
+			productReference = 550F79D6060B5489C7CE0EE1 /* CrewPickShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		716B5AE9AA2C54359B6A97A8 /* CrewPick */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 414AB50618215C12EAE8878E /* Build configuration list for PBXNativeTarget "CrewPick" */;
 			buildPhases = (
 				D44376B339FD180C48152BA9 /* Sources */,
+				673E6FA6E7638AF159BFB142 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B97B1501956114A085C82F75 /* PBXTargetDependency */,
 			);
 			name = CrewPick;
 			packageProductDependencies = (
@@ -186,6 +268,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					70F7417B52905CBF5209F8E1 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
 					716B5AE9AA2C54359B6A97A8 = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
@@ -207,11 +293,23 @@
 			projectRoot = "";
 			targets = (
 				716B5AE9AA2C54359B6A97A8 /* CrewPick */,
+				70F7417B52905CBF5209F8E1 /* CrewPickShareExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		22B7BBA725976C82580809C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70A26594D3BD3B58A0BC6247 /* DeepLinks.swift in Sources */,
+				B3B749016F5AB81E9D40FCB8 /* ShareViewController.swift in Sources */,
+				60242F142E42D7B04D86AA2D /* SharedImportStore.swift in Sources */,
+				5EA0F8E433D4C31208D1D07E /* URLNormalizer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D44376B339FD180C48152BA9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -225,17 +323,27 @@
 				1C9192701D3F44846C221781 /* GroupBoardView.swift in Sources */,
 				0F75E47775DBD3A8CB4B0692 /* GroupMembersView.swift in Sources */,
 				97F2559F3566A2BADE726F46 /* IdeaFlows.swift in Sources */,
+				A4714C4BB67822F7E98B0460 /* LocalLinkMetadataProvider.swift in Sources */,
 				F98F2F6CBD313C60B375EAE3 /* LocalStore.swift in Sources */,
 				25DD99EF2A7B1926EE580C5F /* Models.swift in Sources */,
 				33FEC568C8E90F0FEE2CF138 /* Repositories.swift in Sources */,
 				FC29E8CF29DF8494FCDA9E70 /* RootView.swift in Sources */,
 				CB1B7D7BE756AF081A111DFF /* SampleData.swift in Sources */,
 				18D39F2DB3A3A244608F30E9 /* SharedComponents.swift in Sources */,
+				EDFD274F17BF010125B57E29 /* SharedImportStore.swift in Sources */,
 				DEB33BA10F03F7B002F0104E /* URLNormalizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B97B1501956114A085C82F75 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 70F7417B52905CBF5209F8E1 /* CrewPickShareExtension */;
+			targetProxy = 95E3095B17F6CAEFD0F526DA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		000191F423CBC205EF95017B /* Release */ = {
@@ -243,12 +351,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_ENTITLEMENTS = CrewPickApp/CrewPick.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_DISPLAY_NAME)";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CrewPickApp/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -267,12 +373,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_ENTITLEMENTS = CrewPickApp/CrewPick.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_DISPLAY_NAME)";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CrewPickApp/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -285,6 +389,42 @@
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
+		};
+		34B6E9DB9EAFC2EB5D770EFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CrewPickShareExtension/CrewPickShare.entitlements;
+				INFOPLIST_FILE = CrewPickShareExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.crewpick.share;
+				PRODUCT_NAME = CrewPickShare;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		97237F4D51DA48FC322FC56D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CrewPickShareExtension/CrewPickShare.entitlements;
+				INFOPLIST_FILE = CrewPickShareExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.crewpick.share;
+				PRODUCT_NAME = CrewPickShare;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
 		};
 		A170D6D523905870C639EF5F /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -417,6 +557,15 @@
 			buildConfigurations = (
 				09090AE43191798F47C28FB7 /* Debug */,
 				000191F423CBC205EF95017B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5640F2A0681A7C5A95A253E9 /* Build configuration list for PBXNativeTarget "CrewPickShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34B6E9DB9EAFC2EB5D770EFC /* Debug */,
+				97237F4D51DA48FC322FC56D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

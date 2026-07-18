@@ -9,6 +9,7 @@ struct GroupBoardView: View {
     @State private var showingAdd = false
     @State private var showingDecide = false
     @State private var showingMembers = false
+    @State private var duplicateIdeaID: UUID?
 
     private var currentGroup: FriendGroup { model.group(id: group.id) ?? group }
 
@@ -65,8 +66,13 @@ struct GroupBoardView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { Button("Members", systemImage: "person.3") { showingMembers = true } }
         .navigationDestination(for: Idea.self) { IdeaDetailView(ideaID: $0.id, group: group) }
+        .navigationDestination(isPresented: Binding(get: { duplicateIdeaID != nil }, set: { if !$0 { duplicateIdeaID = nil } })) {
+            if let duplicateIdeaID { IdeaDetailView(ideaID: duplicateIdeaID, group: group) }
+        }
         .task { await model.loadIdeas(groupID: group.id) }
-        .sheet(isPresented: $showingAdd) { AddIdeaView(group: group) }
+        .sheet(isPresented: $showingAdd) {
+            AddIdeaView(group: group) { } onOpenDuplicate: { duplicateIdeaID = $0 }
+        }
         .sheet(isPresented: $showingDecide) { DecideView(group: group) }
         .sheet(isPresented: $showingMembers) { GroupMembersView(groupID: group.id) }
     }

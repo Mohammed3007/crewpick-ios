@@ -10,6 +10,9 @@ The repository contains:
 - A local actor-backed repository and deterministic Toronto sample data.
 - SwiftUI Groups, Board, Idea Details, Add Idea, reaction, shortlist, Planned, and Completed flows in `CrewPickApp`.
 - Local onboarding/sign-in, create/join group, invitation sharing, member administration, comments, activity, notification preferences, and offline/error states.
+- A native Share Extension that lets someone choose a CrewPick group before queueing a URL, with App Group handoff into the add-idea flow.
+- Custom/universal deep-link routing for invitations, groups, ideas, and plans, including access checks and normalized duplicate detection.
+- Local link-preview metadata with an editable fallback when metadata is unavailable.
 - Swift Testing coverage with a conditional XCTest fallback for incomplete Command Line Tools installations.
 - An XcodeGen project definition with branding and bundle identifiers isolated in build settings.
 
@@ -22,7 +25,9 @@ No secrets or production credentials are included.
 3. From this directory, run `xcodegen generate` whenever `project.yml` changes.
 4. Open `CrewPick.xcodeproj`, choose an iPhone simulator, and run the CrewPick scheme.
 
-Before signing, replace `com.example.crewpick`, `PRODUCT_DISPLAY_NAME`, and the example App Group identifier. Keep any local public configuration in an untracked `Secrets.xcconfig` copied from `Config/Secrets.xcconfig.example`.
+Before signing, replace `com.example.crewpick`, `PRODUCT_DISPLAY_NAME`, and the example App Group identifier (`group.com.example.crewpick`) in both entitlement files and the core default. Enable the same App Group capability for the app and share-extension identifiers in the Apple Developer portal. Keep any local public configuration in an untracked `Secrets.xcconfig` copied from `Config/Secrets.xcconfig.example`.
+
+To exercise importing after signing, launch CrewPick once so it can cache the user’s groups, then share a webpage from Safari, select CrewPick, choose a group, and tap Post. Opening CrewPick presents the editable import preview. The custom URL scheme can be tested with links such as `crewpick://join/TRIV-88`.
 
 ## Test the domain layer
 
@@ -32,7 +37,7 @@ With full Xcode selected, run:
 swift test
 ```
 
-The tests cover ranking, combined filtering, unvoted behavior, reaction replacement/toggle, finalist selection, URL normalization, duplicate detection, and invite-code rules.
+The tests cover ranking, combined filtering, unvoted behavior, reaction replacement/toggle, finalist selection, URL normalization, duplicate detection, invite/deep-link routing, shared import persistence, and link-preview fallback rules.
 
 If working with Command Line Tools alone, the dependency-free verification path is:
 
@@ -47,8 +52,9 @@ That check exercises the same ranking, filtering, reaction, URL, invitation, and
 The baseline was verified with Xcode 26.6, XcodeGen 2.46.0, and the iOS 26.5 Simulator runtime:
 
 - Generic iOS Simulator build succeeded.
-- All 16 Swift Testing tests passed.
+- All 23 Swift Testing tests passed.
 - The app installed and launched on an iPhone 17 Pro simulator.
+- The embedded share-extension target compiled and passed Xcode’s embedded-binary validation.
 
 ## Architecture
 

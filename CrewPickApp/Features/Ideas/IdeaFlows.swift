@@ -80,12 +80,27 @@ struct AddIdeaView: View {
     @State private var urlText = ""
     @State private var errorMessage: String?
     @State private var isSaving = false
+    @State private var isImporting = false
+    @State private var duplicateIdeaID: UUID?
+    private let onSaved: () -> Void
+    private let onOpenDuplicate: (UUID) -> Void
+
+    init(group: FriendGroup, initialURL: URL? = nil, onSaved: @escaping () -> Void = {}, onOpenDuplicate: @escaping (UUID) -> Void = { _ in }) {
+        self.group = group
+        self.onSaved = onSaved
+        self.onOpenDuplicate = onOpenDuplicate
+        _urlText = State(initialValue: initialURL?.absoluteString ?? "")
+    }
 
     var body: some View {
         NavigationStack {
             Form {
                 Section("Link (optional)") {
                     TextField("https://…", text: $urlText).textInputAutocapitalization(.never).keyboardType(.URL)
+                    Button(isImporting ? "Loading preview…" : "Load link preview", systemImage: "link.badge.plus") {
+                        Task { await loadPreview() }
+                    }
+                    .disabled(URL(string: urlText)?.host == nil || isImporting)
                     Text("If a preview can't be loaded, the URL is kept and you can fill in the details.").font(.caption).foregroundStyle(.secondary)
                 }
                 Section("Idea") {
@@ -98,7 +113,14 @@ struct AddIdeaView: View {
                     }
                     TextField("Note", text: $draft.note, axis: .vertical).lineLimit(3...6)
                 }
-                if let errorMessage { Section { Text(errorMessage).foregroundStyle(.red) } }
+                if let errorMessage {
+                    Section {
+                        Text(errorMessage).foregroundStyle(.red)
+                        if let duplicateIdeaID {
+                            Button("Open existing idea") { dismiss(); onOpenDuplicate(duplicateIdeaID) }
+                        }
+                    }
+                }
             }
             .navigationTitle("New idea")
             .toolbar {
@@ -116,11 +138,25 @@ struct AddIdeaView: View {
         draft.sourceURL = urlText.isEmpty ? nil : URL(string: urlText)
         do {
             try await model.add(draft, to: group.id)
+            onSaved()
             dismiss()
-        } catch RepositoryError.duplicateIdea {
+        } catch RepositoryError.duplicateIdea(let existingID) {
+            duplicateIdeaID = existingID
             errorMessage = "This link is already on the board. Open the existing idea instead."
         } catch {
             errorMessage = "The idea couldn't be saved. Try again."
+        }
+    }
+
+    private func loadPreview() async {
+        guard let url = URL(string: urlText), url.host != nil else { return }
+        isImporting = true; defer { isImporting = false }
+        do {
+            draft = try await model.importPreview(for: url)
+            errorMessage = nil
+        } catch {
+            draft.sourceURL = url
+            errorMessage = "We couldn't read that site's preview. Add a title and the link can still be saved."
         }
     }
 }
