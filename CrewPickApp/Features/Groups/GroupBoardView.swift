@@ -125,6 +125,7 @@ private struct IdeaCard: View {
             }
             .buttonStyle(.plain)
             .accessibilityHint("Opens idea details")
+            .accessibilityIdentifier("idea-card-\(idea.id.uuidString)")
             ReactionControl(idea: idea, userID: userID, onSelect: onReaction)
                 .padding(.horizontal, 14)
                 .padding(.bottom, 14)

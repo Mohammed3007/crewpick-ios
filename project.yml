@@ -47,7 +47,8 @@ targets:
           - CFBundleURLName: com.example.crewpick
             CFBundleURLSchemes: [crewpick]
     scheme:
-      testTargets: []
+      testTargets:
+        - CrewPickUITests
   CrewPickShareExtension:
     type: app-extension
     platform: iOS
@@ -74,3 +75,15 @@ targets:
           NSExtensionAttributes:
             NSExtensionActivationRule:
               NSExtensionActivationSupportsWebURLWithMaxCount: 1
+  CrewPickUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: CrewPickUITests
+    dependencies:
+      - target: CrewPick
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.crewpick.uitests
+        TEST_TARGET_NAME: CrewPick
+        GENERATE_INFOPLIST_FILE: true

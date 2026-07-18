@@ -22,6 +22,7 @@ struct IdeaDetailView: View {
                                     .font(.subheadline.bold()).foregroundStyle(CrewPickTheme.success)
                             }
                             Text(idea.title).font(.largeTitle.bold())
+                                .accessibilityIdentifier("idea-detail-title")
                             Text([idea.location, idea.priceLevel.map { String(repeating: "$", count: $0) }, idea.category.rawValue].compactMap { $0 }.joined(separator: " · "))
                                 .foregroundStyle(.secondary)
                             if let note = idea.note { Text(note).font(.body) }
@@ -53,6 +54,7 @@ struct IdeaDetailView: View {
                             .lineLimit(1...4).focused($commentFocused)
                             .padding(.horizontal, 14).frame(minHeight: 44)
                             .background(Color(.secondarySystemBackground), in: Capsule())
+                            .accessibilityIdentifier("comment-field")
                         Button("Post", systemImage: "arrow.up.circle.fill") {
                             let body = commentText
                             commentText = ""; commentFocused = false
@@ -61,6 +63,7 @@ struct IdeaDetailView: View {
                         .labelStyle(.iconOnly).font(.title2)
                         .disabled(commentText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                         .accessibilityLabel("Post comment")
+                        .accessibilityIdentifier("post-comment")
                     }
                     .padding(.horizontal).padding(.vertical, 8).background(.ultraThinMaterial)
                 }
@@ -105,6 +108,7 @@ struct AddIdeaView: View {
                 }
                 Section("Idea") {
                     TextField("Title", text: $draft.title)
+                        .accessibilityIdentifier("idea-title-field")
                     Picker("Category", selection: $draft.category) { ForEach(IdeaCategory.allCases) { Text($0.rawValue).tag($0) } }
                     TextField("Location", text: $draft.location)
                     Picker("Price", selection: $draft.priceLevel) {

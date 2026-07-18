@@ -29,6 +29,7 @@
 		CB1B7D7BE756AF081A111DFF /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B5FE5DFE60DAF8C9BC0C4 /* SampleData.swift */; };
 		DEB33BA10F03F7B002F0104E /* URLNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BF2D716962B7B88A07FA99 /* URLNormalizer.swift */; };
 		EDFD274F17BF010125B57E29 /* SharedImportStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536CE1CD9411FE0F20AF7FFD /* SharedImportStore.swift */; };
+		EFD0DD1F9D25B464EDBAE7C3 /* CrewPickUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401C9A804A28184823654B0 /* CrewPickUITests.swift */; };
 		F98F2F6CBD313C60B375EAE3 /* LocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A3605F8E9DCD552476D7B3 /* LocalStore.swift */; };
 		FC0DE19271C00614039E100B /* DeepLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD33D17AF33E2B1401B6E32 /* DeepLinks.swift */; };
 		FC29E8CF29DF8494FCDA9E70 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709E6C1FA0C36341284E6227 /* RootView.swift */; };
@@ -41,6 +42,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 70F7417B52905CBF5209F8E1;
 			remoteInfo = CrewPickShareExtension;
+		};
+		F2876F50FFC7A87CA7B04485 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0389E9D84F3F0B6A99A8E3C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 716B5AE9AA2C54359B6A97A8;
+			remoteInfo = CrewPick;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -70,6 +78,7 @@
 		550F79D6060B5489C7CE0EE1 /* CrewPickShareExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = CrewPickShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E1A2D654471DBE4DE7A693 /* GroupBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoardView.swift; sourceTree = "<group>"; };
 		568C9650450B02721D35101F /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		593CD2486774B5C6B06C7482 /* CrewPickUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CrewPickUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DCE2B6FE0F05BAF407A29BE /* AppNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotifications.swift; sourceTree = "<group>"; };
 		60C1DBEDBBFC648CAE8F2ED6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		612782D3AFBF0449233AB11B /* CrewPick.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CrewPick.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +95,7 @@
 		DAAFD9BF38978599A06E3E2C /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		E8E67C26E9709ACB4004F33F /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
 		EA3886E9EF97E63453CFA05E /* BoardEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardEngine.swift; sourceTree = "<group>"; };
+		F401C9A804A28184823654B0 /* CrewPickUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewPickUITests.swift; sourceTree = "<group>"; };
 		F4CA184D000A6432469E7130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +106,7 @@
 				1DA3F4487BBF39380F31DD0F /* Config */,
 				15CFB776DF3A570EC617AD2C /* CrewPickApp */,
 				7071701073A641071B725A6E /* CrewPickShareExtension */,
+				CEAAF3A311378892E4CFB005 /* CrewPickUITests */,
 				BDDB3B5A32ED7B0CB2684BEA /* Sources */,
 				EBDBE0E82E97A81640205CA3 /* Products */,
 			);
@@ -227,11 +238,20 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		CEAAF3A311378892E4CFB005 /* CrewPickUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F401C9A804A28184823654B0 /* CrewPickUITests.swift */,
+			);
+			path = CrewPickUITests;
+			sourceTree = "<group>";
+		};
 		EBDBE0E82E97A81640205CA3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				612782D3AFBF0449233AB11B /* CrewPick.app */,
 				550F79D6060B5489C7CE0EE1 /* CrewPickShareExtension.appex */,
+				593CD2486774B5C6B06C7482 /* CrewPickUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -275,6 +295,24 @@
 			productReference = 612782D3AFBF0449233AB11B /* CrewPick.app */;
 			productType = "com.apple.product-type.application";
 		};
+		777D442D046B862E43DF2466 /* CrewPickUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5197A611C2B4C5A87E2BA963 /* Build configuration list for PBXNativeTarget "CrewPickUITests" */;
+			buildPhases = (
+				586A70499397D3B478EE5F20 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B895042C904CD45950B69D6E /* PBXTargetDependency */,
+			);
+			name = CrewPickUITests;
+			packageProductDependencies = (
+			);
+			productName = CrewPickUITests;
+			productReference = 593CD2486774B5C6B06C7482 /* CrewPickUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -291,6 +329,11 @@
 					716B5AE9AA2C54359B6A97A8 = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
+					};
+					777D442D046B862E43DF2466 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+						TestTargetID = 716B5AE9AA2C54359B6A97A8;
 					};
 				};
 			};
@@ -310,6 +353,7 @@
 			targets = (
 				716B5AE9AA2C54359B6A97A8 /* CrewPick */,
 				70F7417B52905CBF5209F8E1 /* CrewPickShareExtension */,
+				777D442D046B862E43DF2466 /* CrewPickUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -323,6 +367,14 @@
 				B3B749016F5AB81E9D40FCB8 /* ShareViewController.swift in Sources */,
 				60242F142E42D7B04D86AA2D /* SharedImportStore.swift in Sources */,
 				5EA0F8E433D4C31208D1D07E /* URLNormalizer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		586A70499397D3B478EE5F20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFD0DD1F9D25B464EDBAE7C3 /* CrewPickUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +408,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B895042C904CD45950B69D6E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 716B5AE9AA2C54359B6A97A8 /* CrewPick */;
+			targetProxy = F2876F50FFC7A87CA7B04485 /* PBXContainerItemProxy */;
+		};
 		B97B1501956114A085C82F75 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 70F7417B52905CBF5209F8E1 /* CrewPickShareExtension */;
@@ -385,6 +442,23 @@
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
+		};
+		03D4CEB1C009E7495CA31CA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.crewpick.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CrewPick;
+			};
+			name = Debug;
 		};
 		09090AE43191798F47C28FB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -425,6 +499,23 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
+		};
+		91DFF512A97D74210593FAAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.crewpick.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CrewPick;
+			};
+			name = Release;
 		};
 		97237F4D51DA48FC322FC56D /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -577,6 +668,15 @@
 			buildConfigurations = (
 				09090AE43191798F47C28FB7 /* Debug */,
 				000191F423CBC205EF95017B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5197A611C2B4C5A87E2BA963 /* Build configuration list for PBXNativeTarget "CrewPickUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D4CEB1C009E7495CA31CA4 /* Debug */,
+				91DFF512A97D74210593FAAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

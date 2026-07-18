@@ -41,6 +41,13 @@ swift test
 
 The tests cover ranking, combined filtering, unvoted behavior, reaction replacement/toggle, finalist selection, URL normalization, duplicate detection, invite/deep-link routing, shared import persistence, and link-preview fallback rules.
 
+The CrewPick Xcode scheme also includes two simulator UI tests covering group → idea → comment and group → add idea → board. Run them with an available simulator selected in Xcode, or from the command line:
+
+```sh
+xcodebuild -project CrewPick.xcodeproj -scheme CrewPick \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test
+```
+
 If working with Command Line Tools alone, the dependency-free verification path is:
 
 ```sh
@@ -55,6 +62,7 @@ The baseline was verified with Xcode 26.6, XcodeGen 2.46.0, and the iOS 26.5 Sim
 
 - Generic iOS Simulator build succeeded.
 - All 27 Swift Testing tests passed.
+- Both critical-path XCUITests passed on iPhone 17 Pro.
 - The app installed and launched on an iPhone 17 Pro simulator.
 - The embedded share-extension target compiled and passed Xcode’s embedded-binary validation.
 

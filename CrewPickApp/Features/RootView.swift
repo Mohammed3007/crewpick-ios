@@ -334,6 +334,7 @@ private struct GroupCard: View {
             Image(systemName: "chevron.right").foregroundStyle(.tertiary)
         }
         .padding(16).warmCard().accessibilityElement(children: .combine)
+        .accessibilityIdentifier("group-card-\(group.id.uuidString)")
     }
 }
 
