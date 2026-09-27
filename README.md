@@ -14,7 +14,8 @@ The repository contains:
 - A native Share Extension that lets someone choose a CrewPick group before queueing a URL, with App Group handoff into the add-idea flow.
 - Custom/universal deep-link routing for invitations, groups, ideas, and plans, including access checks and normalized duplicate detection.
 - Local link-preview metadata with an editable fallback when metadata is unavailable.
-- Real iOS notification authorization states, APNs registration callbacks, and per-group preference persistence.
+- Real iOS notification authorization states, APNs registration/tap routing, per-group preferences, a durable retrying notification outbox, and Instant/Daily Digest server dispatch.
+- Authenticated, size-limited HTTPS link previews with redirect and private-network protections for production imports.
 - Official Supabase Swift integration with native Sign in with Apple, email magic links, restored sessions, remote groups/ideas/comments/reactions/plans, expiring invitations, activity, notification preferences, and device registration.
 - Swift Testing coverage with a conditional XCTest fallback for incomplete Command Line Tools installations.
 - An XcodeGen project definition with branding and bundle identifiers isolated in build settings.

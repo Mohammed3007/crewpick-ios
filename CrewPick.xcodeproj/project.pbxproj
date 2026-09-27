@@ -30,6 +30,7 @@
 		C24AA41057420C6FBFBBDF17 /* BoardEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3886E9EF97E63453CFA05E /* BoardEngine.swift */; };
 		CB1B7D7BE756AF081A111DFF /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B5FE5DFE60DAF8C9BC0C4 /* SampleData.swift */; };
 		DEB33BA10F03F7B002F0104E /* URLNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BF2D716962B7B88A07FA99 /* URLNormalizer.swift */; };
+		E5CB9E7845B5B869B0379241 /* SupabaseLinkMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EB3021B6BB2810E7145CEA /* SupabaseLinkMetadataProvider.swift */; };
 		EC5846E9A215A721C4B924E1 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = E094F70878F353BF86720BA4 /* Supabase */; };
 		EDFD274F17BF010125B57E29 /* SharedImportStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536CE1CD9411FE0F20AF7FFD /* SharedImportStore.swift */; };
 		EFD0DD1F9D25B464EDBAE7C3 /* CrewPickUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401C9A804A28184823654B0 /* CrewPickUITests.swift */; };
@@ -92,6 +93,7 @@
 		9D4B99122C847A72873C6FF1 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		A8A16100F22A920E01B29BD1 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		ABD33D17AF33E2B1401B6E32 /* DeepLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinks.swift; sourceTree = "<group>"; };
+		B1EB3021B6BB2810E7145CEA /* SupabaseLinkMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseLinkMetadataProvider.swift; sourceTree = "<group>"; };
 		BDFC5B61C893A79B7D1AA599 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		C48BD579D11EB28F8C6BCE67 /* CrewPickShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CrewPickShare.entitlements; sourceTree = "<group>"; };
 		CE5CFBD32B59ADF3047C93F3 /* LocalLinkMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLinkMetadataProvider.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 		8BD6B900C2204F412AD958A6 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				B1EB3021B6BB2810E7145CEA /* SupabaseLinkMetadataProvider.swift */,
 				68D8071606CADE57224D8050 /* SupabaseRemoteStore.swift */,
 			);
 			path = Data;
@@ -433,6 +436,7 @@
 				18D39F2DB3A3A244608F30E9 /* SharedComponents.swift in Sources */,
 				EDFD274F17BF010125B57E29 /* SharedImportStore.swift in Sources */,
 				01B57999B10DECC4513F3C91 /* SupabaseClient.swift in Sources */,
+				E5CB9E7845B5B869B0379241 /* SupabaseLinkMetadataProvider.swift in Sources */,
 				03525FC7F9A2F403238EA16E /* SupabaseRemoteStore.swift in Sources */,
 				DEB33BA10F03F7B002F0104E /* URLNormalizer.swift in Sources */,
 			);

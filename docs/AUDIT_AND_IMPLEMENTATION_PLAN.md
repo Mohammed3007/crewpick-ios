@@ -36,7 +36,7 @@ The prototype is useful visual direction, but not production implementation guid
 3. **Supabase foundation — implementation complete, deployment pending.** Official SDK repositories, migrations, RLS, transactional RPCs, activity loading, preferences, and setup documentation are present; real-project policy tests, realtime refresh, remote imagery, and seeds require a configured project.
 4. **Authentication and invitations — implementation complete, account configuration required.** Native Apple/email auth, callback/session restoration, remote composition, and server-issued invitations are wired; activation requires real Apple/Supabase identifiers.
 5. **Share extension and deferred imports — implementation complete.** App Group queue, extension-safe URL intake and group choice, containing-app reconciliation, metadata abstraction, and failure recovery build and are tested at the shared-store boundary.
-6. **Notifications and deep links — partial.** APNs registration, authorization states, Instant/Digest/Off persistence, RPC interface, routing, and local tests exist; APNs dispatch and universal-link hosting require external configuration.
+6. **Notifications and deep links — implementation complete, deployment pending.** APNs registration, authorization states, Instant/Digest/Off outbox and dispatch, tap routing, RPCs, and local tests exist; APNs credentials, scheduled deployment, and universal-link hosting require external configuration.
 7. **Quality and beta polish — partial.** Critical-path UI tests and dark/accessibility-size coverage pass; physical-device capability testing, final branding, privacy metadata, and release signing remain.
 
 ## Assumptions that do not block work

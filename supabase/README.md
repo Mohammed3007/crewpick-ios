@@ -15,5 +15,9 @@ Before production:
 - Configure Apple and email auth redirect URLs.
 - Test every RLS policy using two users in different groups.
 - Add the rate limits appropriate for the chosen Supabase plan.
-- Implement and deploy the metadata-fetch and APNs-dispatch Edge Functions.
+- Deploy `metadata-preview` and `dispatch-notifications`, configure the secrets listed in `functions/.env.example`, and schedule the dispatcher at least once per minute with Supabase Cron. Send `Authorization: Bearer $DISPATCH_SECRET` from the scheduled request.
 - Store APNs signing material only in the server secret store.
+
+The notification outbox is populated transactionally from trusted activity events. Instant rows are eligible immediately; daily-digest rows become eligible at 09:00 UTC the next day. The dispatcher claims work with `FOR UPDATE SKIP LOCKED`, retries transient failures three times, removes invalid APNs tokens, and never sends reaction notifications in v1. Adjust the digest time when profile time-zone support is added.
+
+`metadata-preview` requires a valid Supabase user JWT. It accepts HTTPS on port 443 only, revalidates each redirect, rejects private/reserved DNS results, limits response size and time, and returns only normalized Open Graph fields used to prefill an editable idea draft.

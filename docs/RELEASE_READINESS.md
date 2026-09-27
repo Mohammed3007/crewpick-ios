@@ -7,7 +7,7 @@
 - Share Extension target with destination-group selection and durable App Group handoff.
 - Group/invitation/idea/plan deep-link parsing and private-group access checks.
 - iOS notification authorization states, APNs registration callbacks, and per-group preference persistence boundary.
-- Supabase schema, RLS policies, atomic social/plan functions, expiring invitation RPCs, trusted activity triggers, device/preference RPCs, and official Swift SDK repositories.
+- Supabase schema, RLS policies, atomic social/plan functions, expiring invitation RPCs, trusted activity triggers, durable notification outbox/APNs dispatcher, device/preference RPCs, and official Swift SDK repositories.
 - Native Sign in with Apple, email magic-link callback handling, session restoration/sign-out, and automatic production/local-preview composition based on configuration.
 - 30 Swift Testing tests and three XCUITests, including dark mode at an accessibility text size, pass with Xcode 26.6 and iOS 26.5 Simulator.
 
@@ -20,7 +20,7 @@ These steps need project/account values and cannot be completed with example ide
 3. Create a Supabase project, copy only its project URL and publishable/anonymous key into untracked `Config/Secrets.xcconfig`, and apply all migrations in filename order.
 4. Configure Apple as a Supabase Auth provider and add `crewpick://auth-callback` plus the eventual universal-link callback to Supabase's allowed redirect URLs.
 5. Run RLS integration tests with at least two accounts in different groups. Confirm guessed group/idea UUIDs and another user's reaction mutations are rejected.
-6. Deploy metadata-fetch and APNs-dispatch Edge Functions. Keep APNs signing material in server secrets, never in the app or repository.
+6. Deploy the metadata-preview and APNs-dispatch functions, set the APNs/server secrets, and schedule the dispatcher with Supabase Cron. Keep signing material in server secrets, never in the app or repository.
 7. Host `apple-app-site-association` for the final domain and add the final Associated Domains entitlement.
 8. Exercise Apple sign-in, email magic link, Share Sheet, universal links, notification receipt, and notification deep links on a physical iPhone.
 9. Add final App Store icon/artwork, privacy policy/support URLs, privacy nutrition details, screenshots, and release signing.

@@ -1,0 +1,5 @@
+[functions.dispatch-notifications]
+verify_jwt = false
+
+[functions.metadata-preview]
+verify_jwt = true

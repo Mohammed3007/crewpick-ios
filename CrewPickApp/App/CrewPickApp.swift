@@ -55,10 +55,23 @@ private struct PreviewAppRoot: View {
             .environmentObject(model)
             .environmentObject(notifications)
             .onOpenURL { url in Task { await model.handle(url: url) } }
-            .task { await notifications.registerIfAuthorized() }
+            .task {
+                await notifications.registerIfAuthorized()
+                if let url = notifications.pendingDeepLink {
+                    await model.handle(url: url)
+                    notifications.clearPendingDeepLink()
+                }
+            }
             .onChange(of: notifications.deviceToken) { _, token in
                 guard let token else { return }
                 Task { await model.registerDeviceToken(token) }
+            }
+            .onChange(of: notifications.pendingDeepLink) { _, url in
+                guard let url else { return }
+                Task {
+                    await model.handle(url: url)
+                    notifications.clearPendingDeepLink()
+                }
             }
     }
 }
@@ -76,6 +89,7 @@ private struct AuthenticatedAppRoot: View {
             notificationRegistrar: store,
             activityRepository: store,
             notificationPreferenceRepository: store,
+            metadataProvider: SupabaseLinkMetadataProvider(client: client),
             currentUser: User(id: identity.id, displayName: identity.displayName, email: identity.email)
         ))
         self.notifications = notifications
@@ -90,10 +104,23 @@ private struct AuthenticatedAppRoot: View {
                 guard url.host?.lowercased() != "auth-callback" else { return }
                 Task { await model.handle(url: url) }
             }
-            .task { await notifications.registerIfAuthorized() }
+            .task {
+                await notifications.registerIfAuthorized()
+                if let url = notifications.pendingDeepLink {
+                    await model.handle(url: url)
+                    notifications.clearPendingDeepLink()
+                }
+            }
             .onChange(of: notifications.deviceToken) { _, token in
                 guard let token else { return }
                 Task { await model.registerDeviceToken(token) }
+            }
+            .onChange(of: notifications.pendingDeepLink) { _, url in
+                guard let url else { return }
+                Task {
+                    await model.handle(url: url)
+                    notifications.clearPendingDeepLink()
+                }
             }
     }
 }

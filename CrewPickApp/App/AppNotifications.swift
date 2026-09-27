@@ -25,6 +25,7 @@ final class NotificationManager: NSObject, ObservableObject, UNUserNotificationC
     @Published private(set) var permissionState: PermissionState = .unknown
     @Published private(set) var deviceToken: Data?
     @Published private(set) var registrationError: String?
+    @Published private(set) var pendingDeepLink: URL?
 
     private override init() {
         super.init()
@@ -70,11 +71,24 @@ final class NotificationManager: NSObject, ObservableObject, UNUserNotificationC
         registrationError = "Push registration is unavailable on this device."
     }
 
+    func clearPendingDeepLink() {
+        pendingDeepLink = nil
+    }
+
     nonisolated func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification
     ) async -> UNNotificationPresentationOptions {
         [.banner, .sound, .badge]
+    }
+
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse
+    ) async {
+        guard let value = response.notification.request.content.userInfo["deep_link"] as? String,
+              let url = URL(string: value) else { return }
+        await MainActor.run { pendingDeepLink = url }
     }
 }
 
