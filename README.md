@@ -15,7 +15,7 @@ The repository contains:
 - Custom/universal deep-link routing for invitations, groups, ideas, and plans, including access checks and normalized duplicate detection.
 - Local link-preview metadata with an editable fallback when metadata is unavailable.
 - Real iOS notification authorization states, APNs registration callbacks, and per-group preference persistence.
-- A dependency-free authenticated Supabase REST/RPC boundary plus server migrations for atomic groups, secure invitations, notification preferences, and device registration.
+- Official Supabase Swift integration with native Sign in with Apple, email magic links, restored sessions, remote groups/ideas/comments/reactions/plans, expiring invitations, activity, notification preferences, and device registration.
 - Swift Testing coverage with a conditional XCTest fallback for incomplete Command Line Tools installations.
 - An XcodeGen project definition with branding and bundle identifiers isolated in build settings.
 
@@ -40,7 +40,7 @@ With full Xcode selected, run:
 swift test
 ```
 
-The tests cover ranking, combined filtering, unvoted behavior, reaction replacement/toggle, finalist selection, URL normalization, duplicate detection, invite/deep-link routing, shared import persistence, and link-preview fallback rules.
+The tests cover ranking, combined filtering, unvoted behavior, reaction replacement/toggle, finalist selection, URL normalization, duplicate detection, generated invitations, invite/deep-link routing, shared import persistence, and link-preview fallback rules.
 
 The CrewPick Xcode scheme also includes three simulator UI tests covering group → idea → comment, group → add idea → board, and the board in dark mode at an accessibility text size. Run them with an available simulator selected in Xcode, or from the command line:
 
@@ -62,14 +62,14 @@ That check exercises the same ranking, filtering, reaction, URL, invitation, and
 The baseline was verified with Xcode 26.6, XcodeGen 2.46.0, and the iOS 26.5 Simulator runtime:
 
 - Generic iOS Simulator build succeeded.
-- All 29 Swift Testing tests passed.
+- All 30 Swift Testing tests passed.
 - All three XCUITests passed on iPhone 17 Pro.
 - The app installed and launched on an iPhone 17 Pro simulator.
 - The embedded share-extension target compiled and passed Xcode’s embedded-binary validation.
 
 ## Architecture
 
-Views depend on `AppModel`; `AppModel` depends on repository protocols; `LocalStore` supplies the current data implementation. Supabase repositories can be added behind the same protocols. Domain types do not import SwiftUI or Supabase.
+Views depend on `AppModel`; `AppModel` depends on repository protocols. `LocalStore` supplies the credential-free preview and `SupabaseRemoteStore` supplies authenticated production data through the official SDK. Domain types do not import SwiftUI or Supabase.
 
 See `docs/AUDIT_AND_IMPLEMENTATION_PLAN.md` for attachment findings, assumptions, milestones, and integration blockers.
 

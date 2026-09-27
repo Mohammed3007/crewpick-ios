@@ -198,6 +198,18 @@ public struct GroupInvite: Codable, Hashable, Identifiable, Sendable {
     }
 }
 
+public struct GroupInvitation: Codable, Hashable, Sendable {
+    public let code: String
+    public let expiresAt: Date
+
+    public init(code: String, expiresAt: Date) {
+        self.code = code
+        self.expiresAt = expiresAt
+    }
+
+    public var url: URL? { URL(string: "https://crewpick.app/join/\(code)") }
+}
+
 public struct IdeaDraft: Hashable, Sendable {
     public var title: String
     public var category: IdeaCategory

@@ -3,11 +3,21 @@ import SwiftUI
 struct RootView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @EnvironmentObject private var model: AppModel
+    let requiresPreviewOnboarding: Bool
+    let onSignOut: (() -> Void)?
+
+    init(requiresPreviewOnboarding: Bool = true, onSignOut: (() -> Void)? = nil) {
+        self.requiresPreviewOnboarding = requiresPreviewOnboarding
+        self.onSignOut = onSignOut
+    }
 
     var body: some View {
         Group {
-            if hasCompletedOnboarding {
-                MainTabView { hasCompletedOnboarding = false }
+            if hasCompletedOnboarding || !requiresPreviewOnboarding {
+                MainTabView {
+                    if let onSignOut { onSignOut() }
+                    else { hasCompletedOnboarding = false }
+                }
             } else {
                 OnboardingView { hasCompletedOnboarding = true }
             }

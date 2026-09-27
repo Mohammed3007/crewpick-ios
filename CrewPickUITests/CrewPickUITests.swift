@@ -10,7 +10,7 @@ final class CrewPickUITests: XCTestCase {
     }
 
     private func launch(extraArguments: [String] = []) {
-        app.launchArguments += ["-hasCompletedOnboarding", "YES"]
+        app.launchArguments += ["-hasCompletedOnboarding", "YES", "-useLocalPreview", "YES"]
         app.launchArguments += extraArguments
         app.launch()
     }

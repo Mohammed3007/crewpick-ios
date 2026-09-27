@@ -5,6 +5,7 @@ public actor LocalStore: GroupRepository, IdeaRepository, NotificationRegisterin
     private var storedIdeas: [Idea]
     private var deviceToken: Data?
     private var notificationPreferences: [UUID: NotificationFrequency] = [:]
+    private var invitations: [String: UUID] = [:]
 
     public init(groups: [FriendGroup], ideas: [Idea]) {
         self.storedGroups = groups
@@ -25,7 +26,8 @@ public actor LocalStore: GroupRepository, IdeaRepository, NotificationRegisterin
 
     public func joinGroup(code: String, user: User) async throws -> FriendGroup {
         guard InviteCode.isValid(code) else { throw RepositoryError.invalidInvite }
-        if InviteCode.normalize(code) == "TRIV88" {
+        let normalizedCode = InviteCode.normalize(code)
+        if normalizedCode == "TRIV88" {
             if let existing = storedGroups.first(where: { $0.name == "Trivia Squad" }) { return existing }
             let group = FriendGroup(name: "Trivia Squad", emoji: "🧠", members: [
                 .init(user: user, role: .member), .init(user: SampleData.maya, role: .admin)
@@ -33,7 +35,25 @@ public actor LocalStore: GroupRepository, IdeaRepository, NotificationRegisterin
             storedGroups.append(group)
             return group
         }
+        if let groupID = invitations[normalizedCode],
+           let index = storedGroups.firstIndex(where: { $0.id == groupID }) {
+            if !storedGroups[index].members.contains(where: { $0.user.id == user.id }) {
+                storedGroups[index].members.append(.init(user: user, role: .member))
+            }
+            return storedGroups[index]
+        }
         throw RepositoryError.invalidInvite
+    }
+
+    public func createInvitation(for groupID: UUID, requestedBy: UUID) async throws -> GroupInvitation {
+        guard let group = storedGroups.first(where: { $0.id == groupID }) else { throw RepositoryError.groupNotFound }
+        guard group.members.contains(where: { $0.user.id == requestedBy && $0.role == .admin }) else {
+            throw RepositoryError.permissionDenied
+        }
+        let compact = String(UUID().uuidString.replacingOccurrences(of: "-", with: "").prefix(10)).uppercased()
+        invitations[compact] = groupID
+        let displayCode = "\(compact.prefix(5))-\(compact.suffix(5))"
+        return GroupInvitation(code: displayCode, expiresAt: .now.addingTimeInterval(7 * 86_400))
     }
 
     public func removeMember(_ userID: UUID, from groupID: UUID, requestedBy: UUID) async throws -> FriendGroup {

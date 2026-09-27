@@ -29,6 +29,18 @@ struct LocalStoreFlowTests {
         }
     }
 
+    @Test("Admin-created invitations can be redeemed")
+    func generatedInvitation() async throws {
+        let store = SampleData.store()
+        let invitation = try await store.createInvitation(for: SampleData.weekendCrewID, requestedBy: SampleData.alex.id)
+        #expect(InviteCode.isValid(invitation.code))
+        #expect(invitation.expiresAt > .now)
+
+        let newcomer = User(displayName: "New Friend")
+        let group = try await store.joinGroup(code: invitation.code, user: newcomer)
+        #expect(group.members.contains(where: { $0.user.id == newcomer.id }))
+    }
+
     @Test("Only an admin can remove a member")
     func memberRemovalPermission() async {
         let store = SampleData.store()

@@ -15,6 +15,10 @@ configs:
 configFiles:
   Debug: Config/Base.xcconfig
   Release: Config/Base.xcconfig
+packages:
+  Supabase:
+    url: https://github.com/supabase/supabase-swift.git
+    from: 2.46.0
 targets:
   CrewPick:
     type: application
@@ -24,6 +28,7 @@ targets:
       - path: CrewPickApp
     dependencies:
       - target: CrewPickShareExtension
+      - package: Supabase
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.example.crewpick
@@ -40,6 +45,8 @@ targets:
         CFBundleDisplayName: "$(PRODUCT_DISPLAY_NAME)"
         CFBundleShortVersionString: 1.0.0
         CFBundleVersion: "1"
+        SupabaseURL: "$(SUPABASE_URL)"
+        SupabaseAnonKey: "$(SUPABASE_ANON_KEY)"
         UILaunchScreen: {}
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false

@@ -20,24 +20,55 @@ final class AppModel: ObservableObject {
     private let ideaRepository: any IdeaRepository
     private let metadataProvider: any LinkMetadataProviding
     private let notificationRegistrar: any NotificationRegistering
+    private let activityRepository: (any ActivityRepository)?
+    private let notificationPreferenceRepository: (any NotificationPreferenceRepository)?
 
-    init(store: LocalStore, currentUser: User) {
-        self.groupRepository = store
-        self.ideaRepository = store
-        self.metadataProvider = LocalLinkMetadataProvider()
-        self.notificationRegistrar = store
+    init(
+        groupRepository: any GroupRepository,
+        ideaRepository: any IdeaRepository,
+        notificationRegistrar: any NotificationRegistering,
+        activityRepository: (any ActivityRepository)? = nil,
+        notificationPreferenceRepository: (any NotificationPreferenceRepository)? = nil,
+        metadataProvider: any LinkMetadataProviding = LocalLinkMetadataProvider(),
+        currentUser: User,
+        initialActivity: [ActivityEvent] = [],
+        initialNotificationPreferences: [UUID: NotificationFrequency] = [:]
+    ) {
+        self.groupRepository = groupRepository
+        self.ideaRepository = ideaRepository
+        self.metadataProvider = metadataProvider
+        self.notificationRegistrar = notificationRegistrar
+        self.activityRepository = activityRepository
+        self.notificationPreferenceRepository = notificationPreferenceRepository
         self.currentUser = currentUser
-        self.activity = [
-            ActivityEvent(groupID: SampleData.weekendCrewID, actor: SampleData.priya, kind: .ideaAdded, message: "Priya added Blue Jays vs. Red Sox", createdAt: .now.addingTimeInterval(-86_400), ideaID: SampleData.ideas[2].id),
-            ActivityEvent(groupID: SampleData.weekendCrewID, actor: SampleData.maya, kind: .ideaAdded, message: "Maya added Bar Raval", createdAt: .now.addingTimeInterval(-172_800), ideaID: SampleData.ideas[0].id)
-        ]
-        self.notificationPreferences = [SampleData.weekendCrewID: .instant, SampleData.cottageCrewID: .dailyDigest]
+        self.activity = initialActivity
+        self.notificationPreferences = initialNotificationPreferences
+    }
+
+    convenience init(store: LocalStore, currentUser: User) {
+        self.init(
+            groupRepository: store,
+            ideaRepository: store,
+            notificationRegistrar: store,
+            currentUser: currentUser,
+            initialActivity: [
+                ActivityEvent(groupID: SampleData.weekendCrewID, actor: SampleData.priya, kind: .ideaAdded, message: "Priya added Blue Jays vs. Red Sox", createdAt: .now.addingTimeInterval(-86_400), ideaID: SampleData.ideas[2].id),
+                ActivityEvent(groupID: SampleData.weekendCrewID, actor: SampleData.maya, kind: .ideaAdded, message: "Maya added Bar Raval", createdAt: .now.addingTimeInterval(-172_800), ideaID: SampleData.ideas[0].id)
+            ],
+            initialNotificationPreferences: [SampleData.weekendCrewID: .instant, SampleData.cottageCrewID: .dailyDigest]
+        )
     }
 
     func loadGroups() async {
         state = .loading
         do {
             groups = try await groupRepository.groups(for: currentUser.id)
+            if let activityRepository {
+                activity = (try? await activityRepository.activity(for: currentUser.id)) ?? activity
+            }
+            if let notificationPreferenceRepository {
+                notificationPreferences = (try? await notificationPreferenceRepository.notificationPreferences(for: currentUser.id)) ?? notificationPreferences
+            }
             cacheGroupsForExtension()
             incomingImport = SharedImportStore()?.pendingImports().first
             state = .loaded
@@ -117,6 +148,10 @@ final class AppModel: ObservableObject {
         } catch {
             alertMessage = "That member couldn't be removed."
         }
+    }
+
+    func createInvitation(for groupID: UUID) async throws -> GroupInvitation {
+        try await groupRepository.createInvitation(for: groupID, requestedBy: currentUser.id)
     }
 
     func addComment(_ body: String, to ideaID: UUID, in groupID: UUID) async {

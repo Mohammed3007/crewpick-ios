@@ -15,6 +15,15 @@ public protocol GroupRepository: Sendable {
     func createGroup(name: String, emoji: String, owner: User) async throws -> FriendGroup
     func joinGroup(code: String, user: User) async throws -> FriendGroup
     func removeMember(_ userID: UUID, from groupID: UUID, requestedBy: UUID) async throws -> FriendGroup
+    func createInvitation(for groupID: UUID, requestedBy: UUID) async throws -> GroupInvitation
+}
+
+public protocol ActivityRepository: Sendable {
+    func activity(for userID: UUID) async throws -> [ActivityEvent]
+}
+
+public protocol NotificationPreferenceRepository: Sendable {
+    func notificationPreferences(for userID: UUID) async throws -> [UUID: NotificationFrequency]
 }
 
 public protocol IdeaRepository: Sendable {

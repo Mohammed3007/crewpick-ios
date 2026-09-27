@@ -26,15 +26,15 @@ The prototype is useful visual direction, but not production implementation guid
 - Attachments: `/Users/mohammed/PlansApp`; no repository or native source existed there.
 - Installed compiler: Apple Swift 6.3.3.
 - Verified toolchain: Xcode 26.6, XcodeGen 2.46.0, and iOS 26.5 Simulator runtime.
-- The generated app and Share Extension build for the iOS Simulator, all 29 Swift Testing tests and three XCUITests pass, and the app launches on an iPhone 17 Pro simulator.
+- The generated app and Share Extension build for the iOS Simulator, all 30 Swift Testing tests and three XCUITests pass, and the app launches on an iPhone 17 Pro simulator.
 - `project.yml` remains the deterministic project definition; regenerate `CrewPick.xcodeproj` after changing it.
 
 ## Milestones
 
 1. **Foundation and local board slice — complete.** Feature folders, domain/data boundaries, design tokens, deterministic samples, Groups tab, board, filters, details, reactions, add idea, decision filters, shortlist, planning/completion, and core tests.
 2. **Complete local product loop — complete.** Preview onboarding/auth, create/join/invite/member administration, imported-link confirmation/failure/duplicate recovery, comments, activity, notification settings, loading/offline/error/permission states, ownership controls, and UI tests.
-3. **Supabase foundation — partial.** Migrations, RLS, transactional RPCs, client transport, and setup documentation are present; real-project policy tests, remote repositories, realtime, storage, and seeds still require a configured project.
-4. **Authentication and invitations — account configuration required.** Secure invitation RPCs and deep-link parsing exist; native Apple/email auth activation and session restoration require the real Apple/Supabase identifiers.
+3. **Supabase foundation — implementation complete, deployment pending.** Official SDK repositories, migrations, RLS, transactional RPCs, activity loading, preferences, and setup documentation are present; real-project policy tests, realtime refresh, remote imagery, and seeds require a configured project.
+4. **Authentication and invitations — implementation complete, account configuration required.** Native Apple/email auth, callback/session restoration, remote composition, and server-issued invitations are wired; activation requires real Apple/Supabase identifiers.
 5. **Share extension and deferred imports — implementation complete.** App Group queue, extension-safe URL intake and group choice, containing-app reconciliation, metadata abstraction, and failure recovery build and are tested at the shared-store boundary.
 6. **Notifications and deep links — partial.** APNs registration, authorization states, Instant/Digest/Off persistence, RPC interface, routing, and local tests exist; APNs dispatch and universal-link hosting require external configuration.
 7. **Quality and beta polish — partial.** Critical-path UI tests and dark/accessibility-size coverage pass; physical-device capability testing, final branding, privacy metadata, and release signing remain.
